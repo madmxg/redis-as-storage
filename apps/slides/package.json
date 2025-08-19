@@ -1,0 +1,29 @@
+{
+  "name": "slides",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "author": "Mikhail Garbuzov",
+  "license": "MIT",
+  "scripts": {
+    "pdf": "shower pdf",
+    "serve": "shower serve",
+    "archive": "shower archive",
+    "bundle": "shower bundle",
+    "publish": "shower publish",
+    "dev": "rspack dev",
+    "build": "rspack build",
+    "preview": "rspack preview"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^1.4.11",
+    "@rspack/core": "^1.4.11",
+    "@shower/cli": "^0.3.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@shower/core": "^3.3.0",
+    "@shower/ribbon": "^3.5.2"
+  }
+}

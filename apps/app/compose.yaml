@@ -1,0 +1,11 @@
+services:
+  redis:
+    image: redis/redis-stack
+    platform: linux/arm64
+    ports:
+      - 6379:6379
+    command: >-
+      redis-server
+        --loglevel debug
+        --protected-mode no
+        --loadmodule /opt/redis-stack/lib/rejson.so

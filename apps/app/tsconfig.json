@@ -1,0 +1,10 @@
+{
+  "extends": ["@tsconfig/node22/tsconfig.json"],
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": ["src"]
+}

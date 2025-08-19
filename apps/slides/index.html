@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Shower Presentation Engine</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body class="shower list">
+    <header class="caption">
+      <h1>Redis as a Database for Node.js</h1>
+      <p><a target="_blank" href="https://t.me/madmxg">Mikhail Garbuzov</a>, RingCentral</p>
+    </header>
+
+    <section class="slide clear">
+      <h2 class="shout" style="font-size: 3em">Redis as a Database for Node.js</h2>
+    </section>
+
+    <section class="slide intro clear">
+      <img src="assets/images/me.jpg" />
+      <div>
+        <h2 class="">About me 🧔‍♂️</h2>
+        <h3 style="font-size: 2em; margin-block-end: 0px">Mikhail Garbuzov</h3>
+        <ul>
+          <li>Software Engineer at RingCentral</li>
+          <li>MoscowJS Co-Organizer</li>
+          <!-- <li>More than 10 Y experience with JS</li> -->
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2 class="">What is this presentation about?</h2>
+      <ul>
+        <li class="next">Database overview</li>
+        <li class="next">Redis intro</li>
+        <li class="next">How we use Redis</li>
+        <li class="next">Wrap it out</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Let's start with the basics</h2>
+      <ol>
+        <li>Node.js</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Let's start with the basics</h2>
+      <ol>
+        <li>Node.js</li>
+        <li>Database</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Let's start with the basics</h2>
+      <ol>
+        <li>Node.js</li>
+        <li>Database</li>
+        <li>Clients</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout" style="font-size: 3em">
+        Database<br />=<br />Database Management System<br />=<br />DBMS
+      </h2>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li>Relational database (SQL)</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li>Relational database (SQL)</li>
+        <li>Document-oriented database (NoSQL)</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li>Relational database (SQL)</li>
+        <li>Document-oriented database (NoSQL)</li>
+        <li>NewSQL</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li>Relational database (SQL)</li>
+        <li>Document-oriented database (NoSQL)</li>
+        <li>NewSQL</li>
+        <li>Key–value</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li>Relational database (SQL)</li>
+        <li>Document-oriented database (NoSQL)</li>
+        <li>NewSQL</li>
+        <li>Key–value</li>
+        <li>Embedded database</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li>Relational database (SQL)</li>
+        <li>Document-oriented database (NoSQL)</li>
+        <li>NewSQL</li>
+        <li>Key–value</li>
+        <li>Embedded database</li>
+        <li>...</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li><strong>Relational database (SQL)</strong></li>
+        <li><strong>Document-oriented database (NoSQL)</strong></li>
+        <li class="unmarked">NewSQL</li>
+        <li class="unmarked">Key–value</li>
+        <li class="unmarked">Embedded database</li>
+        <li class="unmarked">...</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li class="unmarked">Relational database (SQL)</li>
+        <li class="unmarked">Document-oriented database (NoSQL)</li>
+        <li class="unmarked">NewSQL</li>
+        <li><strong>Key–value</strong></li>
+        <li class="unmarked">Embedded database</li>
+        <li class="unmarked">...</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Database</h2>
+      <ol>
+        <li class="unmarked">Relational database (SQL)</li>
+        <li class="unmarked">Document-oriented database (NoSQL)</li>
+        <li class="unmarked">NewSQL</li>
+        <li><strong>Key–value → Redis</strong></li>
+        <li class="unmarked">Embedded database</li>
+        <li class="unmarked">...</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <blockquote>
+        <p>
+          Redis is an in-memory data store used by millions of developers as a cache, vector
+          database, <strong>document database</strong>, streaming engine, and message broker.
+        </p>
+      </blockquote>
+      <img class="cover w-80" src="assets/images/redis-logo.svg" />
+    </section>
+
+    <section class="slide">
+      <h2>Redis benefits</h2>
+    </section>
+
+    <section class="slide">
+      <h2>Let's code</h2>
+    </section>
+
+    <section class="slide">
+      <h2>Pre-requisite</h2>
+      <pre>
+        <code>
+          # compose.yaml
+          services:
+            redis:
+              image: redis/redis-stack
+              platform: linux/arm64
+              command: >-
+                redis-server
+                  --loadmodule /opt/redis-stack/lib/rejson.so
+        </code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>Packages</h2>
+      <ol>
+        <li>ioredis</li>
+        <li>typescript</li>
+        <li>express</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Motivation</h2>
+    </section>
+
+    <section class="slide">
+      <h2>basic app</h2>
+      <pre>
+        <code>
+          # redis.ts
+          import { Redis, type RedisOptions } from 'ioredis';
+
+          const options: RedisOptions = {
+            host: 'localhost',
+            port: 6379,
+            db: 0,
+          };
+          export const redis = new Redis(options);
+        </code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>basic app</h2>
+      <pre>
+        <code>
+          # app.ts
+          app.get('/set', async (req, res) => {
+            await redis.set(req.query.key, req.query.value);
+            res.status(200).send('OK');
+          });
+          app.get('/get', async (req, res) => {
+            const value = await redis.get(req.query.key);
+            res.status(200).send(value);
+          });
+        </code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>Introduce pipelines</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about Object Model</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about Model with @decorators</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about document loader</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about <code>node:async_hooks</code></h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about command queue & MULTI & pipeline</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about client side cache</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 performance results</h2>
+    </section>
+
+    <section class="slide">
+      <div id="root"></div>
+      <!-- Create your first slide -->
+    </section>
+
+    <footer class="badge">
+      <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+    </footer>
+
+    <div class="progress"></div>
+  </body>
+</html>

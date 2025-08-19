@@ -1,0 +1,53 @@
+.shower {
+  --slide-ratio: calc(16 / 9);
+}
+.slide pre {
+  font-size: 18px;
+}
+.slide li.unmarked {
+  color: rgb(150, 150, 150);
+}
+.slide pre code.add {
+  background-color: rgba(0, 128, 0, 0.1);
+  color: green;
+}
+.slide pre code.del {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: red;
+}
+.slide .shout.shout-e {
+  font-size: 2.2em;
+}
+.slide.intro {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slide.intro > img {
+  height: auto;
+  width: 55%;
+}
+
+.slide.intro > div {
+  padding-right: 2em;
+}
+
+.slide > h3.bottom-bg {
+  background-color: #376da3;
+  color: #fff;
+  padding: 0.5em 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.slide.carbon {
+  background-color: #acb8c3;
+}
+
+.cover.w-80,
+.cover.width-80 {
+  width: 80%;
+  max-height: none;
+  margin-top: 2em;
+}

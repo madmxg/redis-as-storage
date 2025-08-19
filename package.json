@@ -1,0 +1,14 @@
+{
+  "name": "redis-as-storage",
+  "version": "1.0.0",
+  "description": "Redis as storage",
+  "author": "Mikhail Garbuzov",
+  "license": "MIT",
+  "main": "index.js",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
