@@ -6,8 +6,8 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "tsx --inspect src/index.ts"
+    "test": "tsx --test",
+    "start:dev": "tsx --inspect --watch src/index.ts"
   },
   "dependencies": {
     "express": "^5.1.0",
