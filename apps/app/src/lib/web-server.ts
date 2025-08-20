@@ -3,10 +3,10 @@ import express from 'express';
 
 import { rootLogger } from './log';
 import { redis } from './redis';
+import { getStoreValue } from './request-store';
 import { initializeStoreMiddleware } from '../middlewares/initialize-store';
 import { populateStoreMiddleware } from '../middlewares/populate-store';
-import { getStoreValue } from './request-store';
-import { RDocument, RDocumentLoader } from './RDocumentLoader';
+import { type RDocument, type RDocumentLoader } from './loader';
 
 const log = rootLogger.child({ component: 'WebServer' });
 
