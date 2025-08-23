@@ -30,36 +30,58 @@
 
     <section class="slide">
       <h2 class="">What is this presentation about?</h2>
-      <ul>
+      <ol>
+        <li class="next">Problem</li>
         <li class="next">Database overview</li>
         <li class="next">Redis intro</li>
         <li class="next">How we use Redis</li>
         <li class="next">Wrap it out</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>&nbsp;</h2>
+      <h3 class="shout shout-e">
+        My team and I are developing a service that manages the client's state inside a meeting.
+      </h3>
+    </section>
+
+    <section class="slide">
+      <center><h2>Video Conference Processor</h2></center>
+      <h3 class="shout shout-e">
+        My team and I are developing a service that manages the client's state inside a meeting.
+      </h3>
+    </section>
+
+    <section class="slide">
+      <h2>&nbsp;</h2>
+      <ul>
+        <li>Backend</li>
+        <li>+</li>
+        <li>Database</li>
       </ul>
     </section>
 
     <section class="slide">
-      <h2>Let's start with the basics</h2>
-      <ol>
-        <li>Node.js</li>
-      </ol>
+      <img class="cover h" src="assets/images/grafana/participants.png" />
     </section>
 
     <section class="slide">
-      <h2>Let's start with the basics</h2>
-      <ol>
-        <li>Node.js</li>
-        <li>Database</li>
-      </ol>
+      <img class="cover h" src="assets/images/grafana/rps.png" />
     </section>
 
     <section class="slide">
-      <h2>Let's start with the basics</h2>
-      <ol>
-        <li>Node.js</li>
-        <li>Database</li>
-        <li>Clients</li>
-      </ol>
+      <img class="cover h" src="assets/images/grafana/latency-all.png" />
+    </section>
+
+    <section class="slide">
+      <h2>&nbsp;</h2>
+      <h3 class="shout shout-e">Backend 💚 Database</h3>
+    </section>
+
+    <section class="slide">
+      <h2>&nbsp;</h2>
+      <h3 class="shout shout-e">Database 🤷‍♂️</h3>
     </section>
 
     <section class="slide">
@@ -173,6 +195,9 @@
 
     <section class="slide">
       <h2>Redis benefits</h2>
+      <ol>
+        <li class="unmarked">// TODO:</li>
+      </ol>
     </section>
 
     <section class="slide">
@@ -180,39 +205,47 @@
     </section>
 
     <section class="slide">
-      <h2>Pre-requisite</h2>
-      <pre>
-        <code>
-          # compose.yaml
-          services:
-            redis:
-              image: redis/redis-stack
-              platform: linux/arm64
-              command: >-
-                redis-server
-                  --loadmodule /opt/redis-stack/lib/rejson.so
-        </code>
-      </pre>
-    </section>
-
-    <section class="slide">
-      <h2>Packages</h2>
+      <h2>Our wishes</h2>
       <ol>
-        <li>ioredis</li>
-        <li>typescript</li>
-        <li>express</li>
+        <li>Performance</li>
+        <li>ORM style</li>
+        <li>..</li>
       </ol>
     </section>
 
     <section class="slide">
-      <h2>Motivation</h2>
+      <h2>analysis of existing solutions</h2>
+      <ol>
+        <li>ioredis</li>
+        <li>node-redis</li>
+        <li>redis-om-node</li>
+        <li>Nohm</li>
+      </ol>
     </section>
 
     <section class="slide">
       <h2>basic app</h2>
       <pre>
         <code>
-          # redis.ts
+          // TODO: Code example for redis-om-node
+        </code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>basic app</h2>
+      <pre>
+        <code>
+          // TODO: Code example for Nohm
+        </code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>basic app</h2>
+      <pre>
+        <code>
+          // TODO: Code example for classic ioredis
           import { Redis, type RedisOptions } from 'ioredis';
 
           const options: RedisOptions = {
@@ -226,6 +259,33 @@
     </section>
 
     <section class="slide">
+      <h2>Own way</h2>
+    </section>
+
+    <section class="slide">
+      <h2>Pre-requisite</h2>
+      <pre>
+        <code>
+          # compose.yaml
+          services:
+            redis:
+              image: redis/redis-stack
+              ports:
+                - 6379:6379
+        </code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>Packages</h2>
+      <ol>
+        <li>ioredis</li>
+        <li>typescript</li>
+        <li>express</li>
+      </ol>
+    </section>
+
+    <!-- <section class="slide">
       <h2>basic app</h2>
       <pre>
         <code>
@@ -240,18 +300,18 @@
           });
         </code>
       </pre>
-    </section>
+    </section> -->
 
     <section class="slide">
       <h2>Introduce pipelines</h2>
     </section>
 
-    <section class="slide">
+    <!-- <section class="slide">
       <h2>🚧 about Object Model</h2>
-    </section>
+    </section> -->
 
     <section class="slide">
-      <h2>🚧 about Model with @decorators</h2>
+      <h2>🚧 about <code>node:async_hooks</code></h2>
     </section>
 
     <section class="slide">
@@ -259,11 +319,15 @@
     </section>
 
     <section class="slide">
-      <h2>🚧 about <code>node:async_hooks</code></h2>
+      <h2>🚧 about command queue & MULTI & pipeline</h2>
     </section>
 
     <section class="slide">
-      <h2>🚧 about command queue & MULTI & pipeline</h2>
+      <h2>🚧 about traverce</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 about Model with @decorators</h2>
     </section>
 
     <section class="slide">
