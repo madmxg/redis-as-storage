@@ -6,7 +6,7 @@ import { redis } from './redis';
 import { getStoreValue } from './request-store';
 import { initializeStoreMiddleware } from '../middlewares/initialize-store';
 import { populateStoreMiddleware } from '../middlewares/populate-store';
-import { type RDocument, type RDocumentLoader } from './loader';
+import { type RDocument, type RDocumentLoader } from './rloader';
 
 const log = rootLogger.child({ component: 'WebServer' });
 
@@ -15,7 +15,6 @@ class MyDocument implements RDocument<object> {
   getDocument(): object {
     return {};
   }
-  pushLoaderError(): void {}
 
   prepareLoad(loader: RDocumentLoader): void {
     loader.enqueueCommand<number>('GET', `${this.documentKey}:increment_on_load`, (result) => {
