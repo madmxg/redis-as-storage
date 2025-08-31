@@ -1,21 +1,15 @@
-import { rootLogger } from '../lib/log';
+import { setImmediate } from 'node:timers';
 
 export class CountDownLatch {
-  static #instanceCount = 0;
-
   #count: number;
   readonly #promise: PromiseWithResolvers<void>;
-  readonly #instanceId = CountDownLatch.#instanceCount++;
-  protected log = rootLogger.child({ component: 'CountDownLatch', instanceId: this.#instanceId });
 
   constructor(count: number) {
     this.#count = count;
     this.#promise = Promise.withResolvers();
-    this.log.debug('NewCountdownLatch');
   }
 
   async #resolve(): Promise<void> {
-    this.log.debug('WillResolveLatch');
     this.#promise.resolve();
   }
 
@@ -24,7 +18,6 @@ export class CountDownLatch {
   }
 
   public countDown(): void {
-    this.log.debug('CountDown', { priorCount: this.count });
     if (this.#count <= 0) {
       return;
     }
