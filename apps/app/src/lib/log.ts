@@ -1,7 +1,7 @@
 import { type LoggerOptions, pino } from 'pino';
 
 const loggerOptions: LoggerOptions = {
-  level: 'debug',
+  level: process.env['LOG_LEVEL'] ?? 'debug',
   messageKey: 'message',
   errorKey: 'error',
   redact: ['hostname'],
