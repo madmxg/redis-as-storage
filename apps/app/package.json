@@ -18,7 +18,9 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
+    "@types/debug": "^4.1.12",
     "@types/node": "^24.1.0",
+    "debug": "^4.4.1",
     "tsx": "^4.20.3",
     "typescript": "^5.9.2"
   }
