@@ -1,8 +1,4 @@
-import { rootLogger } from '../lib/log';
-
 type AsyncVoidFunction = () => Promise<void> | void;
-
-const log = rootLogger.child({ component: 'ExclusiveRunner' });
 
 export class ExclusiveRunner {
   private open = true;
@@ -16,7 +12,6 @@ export class ExclusiveRunner {
 
   public run(): void {
     if (!this.open) {
-      log.warn('RunnerClosed');
       return;
     }
     if (this.currentRun) {
@@ -28,7 +23,6 @@ export class ExclusiveRunner {
 
   private scheduleNext(): void {
     if (!this.open) {
-      log.warn('ScheduleNextRunnerClosed');
       return;
     }
     this.currentRun = this.doRun();
@@ -38,7 +32,6 @@ export class ExclusiveRunner {
     try {
       await this.fn();
     } catch (error) {
-      log.error('RunFailed', { error });
     } finally {
       this.currentRun = null;
       if (this.runRequested) {
