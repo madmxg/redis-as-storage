@@ -1,5 +1,5 @@
 import { type RDocumentOperationName } from './lifecycle';
-import { type RTraverseOptions } from '../rloader/RTraverseOptions';
+import { type RTraverseOptions } from './traverse';
 import { type RDocumentOperation } from './r-document-operation';
 import { type RDocument } from './r-document';
 
