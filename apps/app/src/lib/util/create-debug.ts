@@ -1,5 +1,5 @@
-import { debug, type Debugger } from 'debug';
+import debug, { type Debugger } from 'debug';
 
 export function createDebug(name: string): Debugger {
-  return debug(`r:${name}`);
+  return debug(`R:${name}`);
 }
