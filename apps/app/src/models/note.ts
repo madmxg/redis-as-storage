@@ -1,5 +1,3 @@
-import assert from 'node:assert/strict';
-
 import { type RDocument } from '../lib/r-document';
 import { type RLoader } from '../lib/r-loader';
 
@@ -44,18 +42,18 @@ export class Note implements RDocument {
     });
   }
 
-  getDocument(): NoteDocument {
+  public getDocument(): NoteDocument {
     return {
       id: this.id,
       text: this.text,
     };
   }
 
-  get exist(): boolean {
+  public get exist(): boolean {
     return this.#exist;
   }
 
-  get deleted(): boolean {
+  public get deleted(): boolean {
     return this.#deleted;
   }
 
