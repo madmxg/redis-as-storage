@@ -6,7 +6,7 @@ import {
   type RDocument,
   type RDocumentOperationName,
 } from '../r-document';
-import { type RDocumentLoader } from '../r-loader';
+import { type RLoader } from '../r-loader';
 import {
   type OperationCompleteCallback,
   RDocumentOperationSpec,
@@ -124,7 +124,7 @@ export class RDocumentOperation {
     return this.parentRef?.deref();
   }
 
-  public prepare(loader: RDocumentLoader): void {
+  public prepare(loader: RLoader): void {
     try {
       this.document[getPrepareOperation(this.operationName)](loader, this.options, this.customData);
     } catch (error) {
@@ -134,7 +134,7 @@ export class RDocumentOperation {
     this.visited = true;
   }
 
-  public async postProcess(loader: RDocumentLoader): Promise<void> {
+  public async postProcess(loader: RLoader): Promise<void> {
     assert(!this.postProcessComplete, 'PostProcessAlreadyComplete');
     await this.document[getAfterOperation(this.operationName)](loader, this.customData);
     this.markPostProcessed();

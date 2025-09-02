@@ -5,7 +5,7 @@ import { Redis } from 'ioredis';
 
 import { RCommandCallback } from '../r-command';
 import { RDocument } from '../r-document';
-import { RDocumentLoader } from './r-loader';
+import { RLoader } from './r-loader';
 
 let redis: Redis;
 before(() => {
@@ -22,14 +22,14 @@ test('ticks when passing commands within commands', async () => {
   class CommandWithCommandDocument implements RDocument {
     constructor(readonly documentKey: string) {}
 
-    prepareLoad(loader: RDocumentLoader): void {
+    prepareLoad(loader: RLoader): void {
       loader.enqueueCommand<number>('GET', `${this.documentKey}:increment_on_load`, (result) => {
         loader.enqueueCommand('GET', `${this.documentKey}:${result}`, (_) => {
           // noop
         });
       });
     }
-    prepareSave(loader: RDocumentLoader): void {
+    prepareSave(loader: RLoader): void {
       loader.enqueueCommand<number>('INCR', `${this.documentKey}:increment_on_load`, (result) => {
         loader.enqueueCommand('SET', `${this.documentKey}:${result}`, 'foo', (_) => {
           // noop
@@ -48,7 +48,7 @@ test('ticks when passing commands within commands', async () => {
     }
   }
 
-  const loader = RDocumentLoader.createInstance(redis);
+  const loader = RLoader.createInstance(redis);
   const documentKey = randomUUID();
   const doc = new CommandWithCommandDocument(documentKey);
   await loader.save(doc);
@@ -69,7 +69,7 @@ test('Resolves documents only after all commands have returned', async () => {
 
     constructor(readonly documentKey: string) {}
 
-    prepareLoad(loader: RDocumentLoader): void {
+    prepareLoad(loader: RLoader): void {
       assert.equal(this.prepareLoadInvoked, false);
       assert.equal(this.innerLoadCommandReturned, false);
       assert.equal(this.outerLoadCommandReturned, false);
@@ -112,7 +112,7 @@ test('Resolves documents only after all commands have returned', async () => {
     }
   }
 
-  const loader = RDocumentLoader.createInstance(redis);
+  const loader = RLoader.createInstance(redis);
   const documentKey = randomUUID();
   const doc = new CommandWithCommandDocument(documentKey);
   const p = loader.load(doc);
@@ -132,7 +132,7 @@ test('enqueue duplicated commands only once', async ({ mock }) => {
     readonly documentKey = 'dummy';
     constructor(readonly mock: Mock<RCommandCallback<unknown>>) {}
 
-    prepareLoad(loader: RDocumentLoader): void {
+    prepareLoad(loader: RLoader): void {
       loader.enqueueCommand('MSET', 'foo', 'FOO', 'bar', 'BAR', 'baz', 'BAZ');
       loader.enqueueCommandOnce('GETEX', 'foo', this.mock);
       loader.enqueueCommandOnce('GETEX', 'bar', this.mock);
@@ -151,7 +151,7 @@ test('enqueue duplicated commands only once', async ({ mock }) => {
   const mockFn = mock.fn<RCommandCallback<unknown>>();
   const doc = new DummyDoc(mockFn);
 
-  const loader = RDocumentLoader.createInstance(redis);
+  const loader = RLoader.createInstance(redis);
   await loader.load(doc);
 
   assert.equal(mockFn.mock.calls.length, 4);

@@ -1,5 +1,5 @@
 import { annotateDecoratorContext } from '../utils';
-import { type RDocumentLoader } from '../../r-loader';
+import { type RLoader } from '../../r-loader';
 import { type RModelHooks } from '../r-model-hooks';
 import { type RModel } from '../r-model';
 
@@ -20,7 +20,7 @@ export type RawStringOptions<TModel, TValue> = {
 function fetchValue<TModel extends RModel, TValue>(
   name: PropertyKey,
   model: TModel,
-  loader: RDocumentLoader,
+  loader: RLoader,
   options: RawStringOptions<TModel, TValue>,
   callback?: (value: TValue | undefined) => void,
 ): void {

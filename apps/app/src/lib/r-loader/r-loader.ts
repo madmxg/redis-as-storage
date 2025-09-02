@@ -30,7 +30,7 @@ const debug = createDebug('RDocumentOperation');
  * Loading is considered complete when there are no further operations to send
  * to the redis server.
  */
-export class RDocumentLoader {
+export class RLoader {
   private readonly redis: Redis;
   private readonly traverse: RDocumentTraverse;
   private readonly commandQueue: RCommandQueue;
@@ -47,8 +47,8 @@ export class RDocumentLoader {
     this.activeOperationStack = [];
   }
 
-  public static createInstance(withRedis: Redis): RDocumentLoader {
-    return new RDocumentLoader(withRedis);
+  public static createInstance(withRedis: Redis): RLoader {
+    return new RLoader(withRedis);
   }
 
   private async multi(

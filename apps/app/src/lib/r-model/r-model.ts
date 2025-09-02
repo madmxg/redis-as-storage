@@ -1,4 +1,4 @@
-import { type RDocumentLoader } from '../r-loader';
+import { type RLoader } from '../r-loader';
 import { type RDocument } from '../r-document';
 import { type RTraverseOptions } from '../r-document';
 import { type RClassManager } from './r-class-manager';
@@ -11,30 +11,30 @@ export abstract class RModel implements RDocument {
     return managerFor(this);
   }
 
-  prepareLoad(loader: RDocumentLoader, options: RTraverseOptions): void {
+  prepareLoad(loader: RLoader, options: RTraverseOptions): void {
     void this.#manager?.runHook('load', this, loader, options);
   }
 
-  prepareSave(loader: RDocumentLoader, options: RTraverseOptions): void {
+  prepareSave(loader: RLoader, options: RTraverseOptions): void {
     void this.#manager?.runHook('save', this, loader);
     if (options.loadOnSave) {
       this.prepareLoad(loader, options);
     }
   }
 
-  prepareDelete(loader: RDocumentLoader, _options: RTraverseOptions): void {
+  prepareDelete(loader: RLoader, _options: RTraverseOptions): void {
     void this.#manager?.runHook('delete', this, loader);
   }
 
-  async postLoad(loader: RDocumentLoader, _customData: unknown): Promise<void> {
+  async postLoad(loader: RLoader, _customData: unknown): Promise<void> {
     await this.#manager?.runHook('postLoad', this, loader);
   }
 
-  async postSave(loader: RDocumentLoader, _customData: unknown): Promise<void> {
+  async postSave(loader: RLoader, _customData: unknown): Promise<void> {
     await this.#manager?.runHook('postSave', this, loader);
   }
 
-  async postDelete(loader: RDocumentLoader, _customData: unknown): Promise<void> {
+  async postDelete(loader: RLoader, _customData: unknown): Promise<void> {
     await this.#manager?.runHook('postDelete', this, loader);
   }
 

@@ -1,5 +1,5 @@
 import { type RTraverseOptions } from '../r-document';
-import { type RDocumentLoader } from '../r-loader';
+import { type RLoader } from '../r-loader';
 import { type RModel } from './r-model';
 
 // type HookCallbackOptions = {
@@ -17,11 +17,11 @@ export type DefaultHooks = {
 };
 
 export type RModelHooks<TModel extends RModel = RModel> = {
-  // TODO: deprecate passing the options, they could be part of RDocumentLoader if needed
-  load: (model: TModel, loader: RDocumentLoader, options: RTraverseOptions) => void;
-  save: (model: TModel, loader: RDocumentLoader) => void;
-  delete: (model: TModel, loader: RDocumentLoader) => void;
-  postLoad: (model: TModel, loader: RDocumentLoader) => Promise<void>;
-  postSave: (model: TModel, loader: RDocumentLoader) => Promise<void>;
-  postDelete: (model: TModel, loader: RDocumentLoader) => Promise<void>;
+  // TODO: deprecate passing the options, they could be part of RLoader if needed
+  load: (model: TModel, loader: RLoader, options: RTraverseOptions) => void;
+  save: (model: TModel, loader: RLoader) => void;
+  delete: (model: TModel, loader: RLoader) => void;
+  postLoad: (model: TModel, loader: RLoader) => Promise<void>;
+  postSave: (model: TModel, loader: RLoader) => Promise<void>;
+  postDelete: (model: TModel, loader: RLoader) => Promise<void>;
 };

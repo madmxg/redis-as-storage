@@ -4,17 +4,17 @@ import EventEmitter from 'events';
 
 import { createDebug } from '../../util/create-debug';
 import { LinkedQueue } from '../../util/linked-queue';
-import { type RDocumentLoader } from '../../r-loader';
+import { type RLoader } from '../../r-loader';
 import { type RDocumentOperation } from '../r-document-operation';
 
 const debug = createDebug('RDocumentTraverse');
 
 export class RDocumentTraverse extends EventEmitter {
-  private loader: WeakRef<RDocumentLoader>;
+  private loader: WeakRef<RLoader>;
   private unvisitedOperations: LinkedQueue<RDocumentOperation>;
   private visitedOperations: Set<RDocumentOperation>;
 
-  constructor(loader: RDocumentLoader) {
+  constructor(loader: RLoader) {
     super();
     this.loader = new WeakRef(loader);
     this.unvisitedOperations = new LinkedQueue<RDocumentOperation>();
@@ -51,7 +51,7 @@ export class RDocumentTraverse extends EventEmitter {
     this.emit('traverse');
   }
 
-  private prepareOperation(loader: RDocumentLoader, operation: RDocumentOperation): void {
+  private prepareOperation(loader: RLoader, operation: RDocumentOperation): void {
     debug('VisitDocument', {
       operationName: operation.operationName,
       documentType: operation.document.constructor.name,
@@ -62,7 +62,7 @@ export class RDocumentTraverse extends EventEmitter {
   }
 
   private async postProcessOperation(
-    loader: RDocumentLoader,
+    loader: RLoader,
     operation: RDocumentOperation,
   ): Promise<void> {
     debug('PostProcessDocument', {

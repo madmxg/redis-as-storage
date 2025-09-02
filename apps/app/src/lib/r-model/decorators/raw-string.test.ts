@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { test, before, after } from 'node:test';
 
-import { RDocumentLoader } from '../../r-loader';
+import { RLoader } from '../../r-loader';
 import { RawString } from './raw-string';
 import { RModel } from '../r-model';
 import Redis from 'ioredis';
@@ -39,7 +39,7 @@ class RawStringModel extends RModel {
 test('stores strings on a model', async () => {
   const id = randomUUID();
 
-  const loader = RDocumentLoader.createInstance(redis);
+  const loader = RLoader.createInstance(redis);
   const model = new RawStringModel(id);
   model.name = 'charley';
   model.text = 'hello';
