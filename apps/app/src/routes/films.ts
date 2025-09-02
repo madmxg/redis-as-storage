@@ -9,15 +9,16 @@ type FilmId = {
 };
 
 export async function createFilm(
-  req: Request<never, FilmDocument, Omit<FilmDocument, 'id'>>,
+  req: Request<never, FilmDocument, Omit<Required<FilmDocument>, 'id'>>,
   res: Response<FilmDocument>,
 ): Promise<void> {
-  const { text } = req.body;
+  const { title, director } = req.body;
 
   const loader = getStoreValue('loader');
   const id = randomUUID();
   const film = new Film(id);
-  film.text = text;
+  film.title = title;
+  film.director = director;
 
   await loader.save(film);
 

@@ -3,7 +3,8 @@ import { type RLoader } from '../lib/r-loader';
 
 export type FilmDocument = {
   id: string;
-  text?: string;
+  title?: string;
+  director?: string;
 };
 
 export class Film implements RDocument {
@@ -11,24 +12,38 @@ export class Film implements RDocument {
   #deleted = false;
 
   public readonly id: string;
-  public text: string | undefined;
+  public title: string | undefined;
+  public director: string | undefined;
 
   constructor(id: string) {
     this.id = id;
   }
 
   prepareLoad(loader: RLoader): void {
-    loader.enqueueCommand<string>('GET', `${this.id}:text`, (result) => {
-      if (typeof result === 'string') {
-        this.#exist = true;
-        this.text = result;
-      }
+    loader.enqueueCommand<string>('GET', `${this.id}:title`, (title) => {
+      loader.enqueueCommand<string>('GET', `${this.id}:director`, (director) => {
+        if (typeof title === 'string') {
+          this.#exist = true;
+          this.title = title;
+        }
+        if (typeof director === 'string') {
+          this.#exist = true;
+          this.director = director;
+        }
+      });
     });
   }
 
   prepareSave(loader: RLoader): void {
-    if (typeof this.text !== 'undefined') {
-      loader.enqueueCommand<'OK'>('SET', `${this.id}:text`, this.text, (result) => {
+    if (typeof this.title !== 'undefined') {
+      loader.enqueueCommand<'OK'>('SET', `${this.id}:title`, this.title, (result) => {
+        if (result === 'OK') {
+          this.#exist = true;
+        }
+      });
+    }
+    if (typeof this.director !== 'undefined') {
+      loader.enqueueCommand<'OK'>('SET', `${this.id}:director`, this.director, (result) => {
         if (result === 'OK') {
           this.#exist = true;
         }
@@ -37,15 +52,18 @@ export class Film implements RDocument {
   }
 
   prepareDelete(loader: RLoader): void {
-    loader.enqueueCommand<1>('DEL', `${this.id}:text`, (result) => {
-      this.#deleted = result === 1;
+    loader.enqueueCommand<2>('DEL', `${this.id}:title`, `${this.id}:director`, (result) => {
+      this.#deleted = result === 2;
+      this.title = undefined;
+      this.director = undefined;
     });
   }
 
   public getDocument(): FilmDocument {
     return {
       id: this.id,
-      text: this.text,
+      title: this.title,
+      director: this.director,
     };
   }
 
