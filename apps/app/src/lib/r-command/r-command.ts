@@ -5,21 +5,21 @@ export type RCommandCallback<T> = (result: T | null) => void;
 
 type RCommandConfig<ReturnType> = {
   commandName: string;
-  args?: RCommandInput[];
+  args?: Array<RCommandInput>;
   userCallback?: RCommandCallback<ReturnType>;
 };
 
 const debug = createDebug('RCommand');
 
 export class RCommand<ReturnType> {
-  readonly name: string;
-  readonly args?: RCommandInput[];
+  public readonly name: string;
+  public readonly args?: Array<RCommandInput>;
+  public result: ReturnType | null = null;
 
-  #beforeCallbacks: VoidFunction[] = [];
-  #resultCallbacks: RCommandCallback<ReturnType>[] = [];
-  #afterCallbacks: VoidFunction[] = [];
+  #beforeCallbacks: Array<VoidFunction> = [];
+  #resultCallbacks: Array<RCommandCallback<ReturnType>> = [];
+  #afterCallbacks: Array<VoidFunction> = [];
   #completed = Promise.withResolvers<void>();
-  #result: ReturnType | null = null;
 
   private constructor(config: RCommandConfig<ReturnType>) {
     this.name = config.commandName.toLowerCase();
@@ -31,22 +31,16 @@ export class RCommand<ReturnType> {
 
   public static parse<T>(
     commandName: string,
-    ...cArgs: [...args: RCommandInput[], callback: RCommandCallback<T>] | [...args: RCommandInput[]]
+    ...cArgs:
+      | [...args: Array<RCommandInput>, callback: RCommandCallback<T>]
+      | [...args: Array<RCommandInput>]
   ): RCommand<T> {
     let userCallback: RCommandCallback<T> | undefined = undefined;
     if (typeof cArgs[cArgs.length - 1] === 'function') {
       userCallback = cArgs.pop() as RCommandCallback<T>;
     }
-    const commandArgs = cArgs as RCommandInput[];
+    const commandArgs = cArgs as Array<RCommandInput>;
     return new RCommand({ commandName, args: commandArgs, userCallback });
-  }
-
-  public set result(value: ReturnType) {
-    this.#result = value;
-  }
-
-  public get result(): ReturnType | null {
-    return this.#result;
   }
 
   public get completed(): Promise<void> {
@@ -66,9 +60,10 @@ export class RCommand<ReturnType> {
       });
       this.#completed.resolve();
     } catch (error) {
-      debug('CallbackResolveError', { errorMessage: String(error) });
+      debug('CallbackResolveError %s', error);
       this.#completed.reject(error);
     } finally {
+      debug('CommandResolved name{%s} result[%s]', this.name, this.result);
       this.#beforeCallbacks = [];
       this.#resultCallbacks = [];
       this.#afterCallbacks = [];
@@ -85,14 +80,6 @@ export class RCommand<ReturnType> {
 
   public addAfterCallbacksListener(fn: VoidFunction): void {
     this.#afterCallbacks.push(fn);
-  }
-
-  public equals(other: RCommand<any>): boolean {
-    if (!this.args) return this.name === other.name;
-    return (
-      this.args.length === other.args?.length &&
-      this.args.every((arg, idx) => arg === other.args?.[idx])
-    );
   }
 
   public toString(): string {
