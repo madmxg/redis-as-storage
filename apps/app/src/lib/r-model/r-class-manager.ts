@@ -1,4 +1,7 @@
+import { createDebug } from '../util/create-debug';
 import { type DefaultHooks, type HookCallback, type TypedHooks } from './r-model-hooks';
+
+const debug = createDebug('RClassManager');
 
 export class RClassManager<THooks extends TypedHooks<THooks> = DefaultHooks> {
   #hooks: Map<PropertyKey, Set<HookCallback>> = new Map();
@@ -33,6 +36,9 @@ export class RClassManager<THooks extends TypedHooks<THooks> = DefaultHooks> {
       ?.values()
       .map((hook) => hook(...args))
       .toArray();
-    return Promise.all(results ?? []).then((r) => console.log('r', r));
+
+    return Promise.all(results ?? []).then((value) =>
+      debug('HookCompleted name{%s} value{%s}', name, value),
+    );
   }
 }

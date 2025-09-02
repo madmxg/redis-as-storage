@@ -2,29 +2,25 @@ import assert from 'node:assert/strict';
 
 import * as commandParser from '@ioredis/commands';
 import { type Redis, ChainableCommander } from 'ioredis';
+import { createDebug } from '../util/create-debug';
 
 export type RedisCommanderInput = string | Buffer | number;
 export type RCommandCallback<T> = (result: T | null) => void;
+
+const debug = createDebug('RPipeline');
 
 export class RPipeline {
   private static instanceCount = 0;
 
   #pipeline: ChainableCommander;
   private redis: Redis | null;
-  private disposeRedisAfterExec: boolean;
   public readonly pipelineId: number;
   private postWaits: Array<Promise<unknown>> = [];
 
-  constructor(opts: { redis: Redis; disposeRedisAfterExec: boolean }) {
-    const { redis, disposeRedisAfterExec } = opts;
+  constructor(redis: Redis) {
     this.redis = redis;
     this.#pipeline = redis.pipeline();
-    this.disposeRedisAfterExec = disposeRedisAfterExec;
     this.pipelineId = RPipeline.instanceCount++;
-  }
-
-  public static createFrom(redis: Redis): RPipeline {
-    return new RPipeline({ redis, disposeRedisAfterExec: false });
   }
 
   #getCustomCommand(name: string): { numberOfKeys: number; readOnly: boolean } | undefined {
@@ -61,11 +57,9 @@ export class RPipeline {
       await this.#pipeline.exec();
       await Promise.all(this.postWaits);
     } catch (error) {
-      console.error('FinalizePipelineError', { error });
+      debug('FinalizePipelineError %s', error);
     } finally {
-      if (this.disposeRedisAfterExec && this.redis) {
-        this.redis = null;
-      }
+      this.redis = null;
     }
   }
 
@@ -76,7 +70,7 @@ export class RPipeline {
   ): void {
     const wrapper = (error?: Error | null, result?: unknown): void => {
       if (error) {
-        console.error('PipelineCommandError', { error, command, args });
+        debug('PipelineCommandError command{%s}, args{%s}, error %s', command, args, error);
       }
       if (callback) {
         callback(result);

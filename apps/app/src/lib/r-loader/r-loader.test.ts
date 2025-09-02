@@ -47,7 +47,7 @@ test('ticks when passing commands within commands', async () => {
     }
   }
 
-  const loader = RLoader.createInstance(redis);
+  const loader = new RLoader(redis);
   const documentKey = randomUUID();
   const doc = new CommandWithCommandDocument(documentKey);
   await loader.save(doc);
@@ -111,7 +111,7 @@ test('Resolves documents only after all commands have returned', async () => {
     }
   }
 
-  const loader = RLoader.createInstance(redis);
+  const loader = new RLoader(redis);
   const documentKey = randomUUID();
   const doc = new CommandWithCommandDocument(documentKey);
   const p = loader.load(doc);

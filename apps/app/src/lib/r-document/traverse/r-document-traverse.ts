@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
-
-import EventEmitter from 'events';
+import EventEmitter from 'node:events';
 
 import { createDebug } from '../../util/create-debug';
 import { LinkedQueue } from '../../util/linked-queue';
@@ -28,7 +27,7 @@ export class RDocumentTraverse extends EventEmitter {
       return;
     }
 
-    debug('BeginTraverse', { nDocuments: this.unvisitedOperations.size });
+    debug('BeginTraverse nDocs{%d}', this.unvisitedOperations.size);
 
     let totalDocumentsVisited = 0;
     const loader = this.loader.deref();
@@ -52,10 +51,11 @@ export class RDocumentTraverse extends EventEmitter {
   }
 
   private prepareOperation(loader: RLoader, operation: RDocumentOperation): void {
-    debug('VisitDocument', {
-      operationName: operation.operationName,
-      documentType: operation.document.constructor.name,
-    });
+    debug(
+      'VisitDocument operationName{%s} documentType{%s}',
+      operation.operationName,
+      operation.document.constructor.name,
+    );
     loader.pushActiveOperation(operation);
     operation.prepare(loader);
     loader.popActiveOperation();
@@ -65,10 +65,11 @@ export class RDocumentTraverse extends EventEmitter {
     loader: RLoader,
     operation: RDocumentOperation,
   ): Promise<void> {
-    debug('PostProcessDocument', {
-      operationName: operation.operationName,
-      documentType: operation.document.constructor.name,
-    });
+    debug(
+      'PostProcessDocument operationName{%s} documentType{%s}',
+      operation.operationName,
+      operation.document.constructor.name,
+    );
     loader.pushActiveOperation(operation);
     await operation.postProcess(loader);
     loader.popActiveOperation();
@@ -84,15 +85,13 @@ export class RDocumentTraverse extends EventEmitter {
       .toArray();
 
     if (operationsReadyForPostProcessing.length > 0) {
-      debug('PostProcessDocuments', {
-        nDocuments: operationsReadyForPostProcessing.length,
-      });
+      debug('PostProcessDocuments nDocs{%d}', operationsReadyForPostProcessing.length);
 
       for (const operation of operationsReadyForPostProcessing) {
         try {
           await this.postProcessOperation(loader, operation);
         } catch (error) {
-          debug('PostProcessingHandlerRejection', { error });
+          debug('PostProcessingHandlerRejection %s', error);
         }
       }
     }

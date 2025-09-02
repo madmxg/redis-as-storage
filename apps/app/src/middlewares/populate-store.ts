@@ -7,6 +7,6 @@ import { setStoreValue } from '../lib/request-store';
 
 export function populateStoreMiddleware(req: Request, _res: Response, next: NextFunction): void {
   setStoreValue('requestId', req.get('x-request-id') ?? randomUUID());
-  setStoreValue('loader', RLoader.createInstance(redis));
+  setStoreValue('loader', new RLoader(redis));
   next();
 }

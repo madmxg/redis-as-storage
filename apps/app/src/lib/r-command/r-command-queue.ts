@@ -43,11 +43,7 @@ export class RCommandQueue {
             latch.countDown();
           });
       } finally {
-        debug('Command', {
-          commandName: command.name,
-          keys,
-          pipelineId: pipeline.pipelineId,
-        });
+        debug('Command name{%s} keys{%s} with [%d]', command.name, keys, pipeline.pipelineId);
       }
     });
 

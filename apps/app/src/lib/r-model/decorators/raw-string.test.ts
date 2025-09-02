@@ -39,7 +39,7 @@ class RawStringModel extends RModel {
 test('stores strings on a model', async () => {
   const id = randomUUID();
 
-  const loader = RLoader.createInstance(redis);
+  const loader = new RLoader(redis);
   const model = new RawStringModel(id);
   model.name = 'charley';
   model.text = 'hello';
