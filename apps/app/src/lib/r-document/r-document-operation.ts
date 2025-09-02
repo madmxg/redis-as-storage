@@ -1,17 +1,17 @@
 import assert from 'node:assert/strict';
 
+import { createDebug } from '../util/create-debug';
+import { type RLoader } from '../r-loader';
 import {
   getAfterOperation,
   getPrepareOperation,
   type RDocument,
   type RDocumentOperationName,
 } from '../r-document';
-import { type RLoader } from '../r-loader';
 import {
   type OperationCompleteCallback,
   type RDocumentOperationSpec,
 } from './r-document-operation-spec';
-import { createDebug } from '../util/create-debug';
 
 const debug = createDebug('RDocumentOperation');
 
@@ -40,10 +40,6 @@ export class RDocumentOperation {
     debug('NewOperation');
   }
 
-  public get hasPendingCommands(): boolean {
-    return this.nPendingCommands > 0;
-  }
-
   public get nodeComplete(): boolean {
     return this.visited && this.nPendingCommands === 0 && this.postProcessComplete;
   }
@@ -53,7 +49,7 @@ export class RDocumentOperation {
   }
 
   public debugOperation(): void {
-    debug('OperationStatus', {
+    debug('OperationStatus %o', {
       visited: this.visited,
       nPendingCommands: this.nPendingCommands,
       postProcessComplete: this.postProcessComplete,

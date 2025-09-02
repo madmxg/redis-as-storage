@@ -22,12 +22,10 @@ export class RDocumentTraverse extends EventEmitter {
 
   public tick(): void {
     if (this.unvisitedOperations.size === 0) {
-      // intentional noop to prevent reentrance. tick may be called many times
-      // in a single generation but should only need to run once.
       return;
     }
 
-    debug('BeginTraverse nDocs{%d}', this.unvisitedOperations.size);
+    debug('BeginTraverse size{%d}', this.unvisitedOperations.size);
 
     let totalDocumentsVisited = 0;
     const loader = this.loader.deref();
@@ -47,6 +45,7 @@ export class RDocumentTraverse extends EventEmitter {
       this.visitedOperations.add(operation);
     }
 
+    debug('EndTraverse size{%d}', totalDocumentsVisited);
     this.emit('traverse');
   }
 
@@ -85,7 +84,7 @@ export class RDocumentTraverse extends EventEmitter {
       .toArray();
 
     if (operationsReadyForPostProcessing.length > 0) {
-      debug('PostProcessDocuments nDocs{%d}', operationsReadyForPostProcessing.length);
+      debug('PostProcessDocuments size{%d}', operationsReadyForPostProcessing.length);
 
       for (const operation of operationsReadyForPostProcessing) {
         try {
