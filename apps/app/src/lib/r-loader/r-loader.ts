@@ -43,7 +43,7 @@ export class RDocumentLoader {
     const pThis = new WeakRef(this);
     this.traverse.on('traverse', () => pThis.deref()?.tickRunner.run());
     this.tickRunner = new ExclusiveRunner(() => pThis.deref()?.tick());
-    this.commandQueue = new RCommandQueue({ atomic: false });
+    this.commandQueue = new RCommandQueue();
     this.activeOperationStack = [];
   }
 
@@ -262,6 +262,7 @@ export class RDocumentLoader {
    * will be flushed, hence callers should expect that multiple duplicate commands
    * might be actually sent to Redis even when using this method.
    */
+  // TODO: rid
   enqueueCommandOnce<T>(
     commandName: string,
     ...cArgs: [...args: RCommandInput[], callback: RCommandCallback<T>] | [...args: RCommandInput[]]
