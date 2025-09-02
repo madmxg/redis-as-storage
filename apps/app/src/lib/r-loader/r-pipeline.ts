@@ -6,7 +6,7 @@ import { type Redis, ChainableCommander } from 'ioredis';
 export type RedisCommanderInput = string | Buffer | number;
 export type RCommandCallback<T> = (result: T | null) => void;
 
-export class RedisPipeline {
+export class RPipeline {
   private static instanceCount = 0;
 
   #pipeline: ChainableCommander;
@@ -20,11 +20,11 @@ export class RedisPipeline {
     this.redis = redis;
     this.#pipeline = redis.pipeline();
     this.disposeRedisAfterExec = disposeRedisAfterExec;
-    this.pipelineId = RedisPipeline.instanceCount++;
+    this.pipelineId = RPipeline.instanceCount++;
   }
 
-  public static createFrom(redis: Redis): RedisPipeline {
-    return new RedisPipeline({ redis, disposeRedisAfterExec: false });
+  public static createFrom(redis: Redis): RPipeline {
+    return new RPipeline({ redis, disposeRedisAfterExec: false });
   }
 
   #getCustomCommand(name: string): { numberOfKeys: number; readOnly: boolean } | undefined {

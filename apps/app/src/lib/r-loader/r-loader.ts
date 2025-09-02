@@ -13,7 +13,7 @@ import {
   type RDocumentOperationSpec,
   type RDocumentOperationName,
 } from '../r-document';
-import { RedisPipeline } from './r-pipeline';
+import { RPipeline } from './r-pipeline';
 
 const debug = createDebug('RDocumentOperation');
 
@@ -163,7 +163,7 @@ export class RLoader {
     if (this.commandQueue.length === 0) {
       return;
     }
-    const pipeline = new RedisPipeline({ redis: this.redis, disposeRedisAfterExec: true });
+    const pipeline = new RPipeline({ redis: this.redis, disposeRedisAfterExec: true });
     const donePromise = this.commandQueue.writeToPipeline(pipeline);
     void pipeline.exec();
     await donePromise;

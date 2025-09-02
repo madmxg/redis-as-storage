@@ -1,2 +1,2 @@
 export { RLoader } from './r-loader';
-export { RedisPipeline } from './r-pipeline';
+export { RPipeline } from './r-pipeline';

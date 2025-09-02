@@ -1,6 +1,6 @@
 import { CountDownLatch } from '../util/count-down-latch';
 import { createDebug } from '../util/create-debug';
-import { type RedisPipeline } from '../r-loader';
+import { type RPipeline } from '../r-loader';
 import { RCommand, type RCommandCallback, type RCommandInput } from './r-command';
 
 const debug = createDebug('RCommandQueue');
@@ -16,7 +16,7 @@ export class RCommandQueue {
     return new Array(...this.#commands);
   }
 
-  public writeToPipeline(pipeline: RedisPipeline): Promise<void> {
+  public writeToPipeline(pipeline: RPipeline): Promise<void> {
     if (this.#commands.length === 0) {
       return Promise.resolve();
     }
