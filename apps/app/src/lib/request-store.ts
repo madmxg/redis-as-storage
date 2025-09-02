@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { AsyncLocalStorage } from 'node:async_hooks';
 
-import { type RDocumentLoader } from '../lib/rloader';
+import { type RDocumentLoader } from '../lib/r-loader';
 
 type RequestState = {
   requestId: string;

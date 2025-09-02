@@ -1,5 +1,5 @@
 import { annotateDecoratorContext } from '../utils';
-import { type RDocumentLoader } from '../../rloader';
+import { type RDocumentLoader } from '../../r-loader';
 import { type RModelHooks } from '../r-model-hooks';
 import { type RModel } from '../r-model';
 

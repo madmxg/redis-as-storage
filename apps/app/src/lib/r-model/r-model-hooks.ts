@@ -1,5 +1,5 @@
 import { type RTraverseOptions } from '../r-document';
-import { type RDocumentLoader } from '../rloader';
+import { type RDocumentLoader } from '../r-loader';
 import { type RModel } from './r-model';
 
 // type HookCallbackOptions = {

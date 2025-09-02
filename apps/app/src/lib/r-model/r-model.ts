@@ -1,6 +1,4 @@
-import { Logger } from 'pino';
-import { rootLogger } from '../log';
-import { RDocumentLoader } from '../rloader';
+import { type RDocumentLoader } from '../r-loader';
 import { type RDocument } from '../r-document';
 import { type RTraverseOptions } from '../r-document';
 import { type RClassManager } from './r-class-manager';
@@ -8,11 +6,6 @@ import { managerFor } from './utils';
 
 export abstract class RModel implements RDocument {
   #isLoaded = false;
-
-  // TODO: logger as class prop?
-  public get log(): Logger {
-    return rootLogger.child({ component: this.constructor.name });
-  }
 
   get #manager(): RClassManager | undefined {
     return managerFor(this);

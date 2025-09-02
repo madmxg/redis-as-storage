@@ -1,6 +1,6 @@
 import { type RPrepareFunctionName } from './r-document-lifecycle';
 import { type RTraverseOptions } from '../traverse';
-import { type RDocumentLoader } from '../../rloader/RDocumentLoader';
+import { type RDocumentLoader } from '../../r-loader';
 
 type RPrepareFunction = (
   loader: RDocumentLoader,

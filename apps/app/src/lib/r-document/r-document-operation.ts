@@ -6,7 +6,7 @@ import {
   type RDocument,
   type RDocumentOperationName,
 } from '../r-document';
-import { type RDocumentLoader } from '../rloader';
+import { type RDocumentLoader } from '../r-loader';
 import {
   type OperationCompleteCallback,
   RDocumentOperationSpec,

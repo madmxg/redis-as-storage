@@ -1,4 +1,4 @@
-import { type RDocumentLoader } from '../../rloader/RDocumentLoader';
+import { type RDocumentLoader } from '../../r-loader';
 import { type RAfterFunctionName } from './r-document-lifecycle';
 
 type RAfterFunction = (loader: RDocumentLoader, customData?: unknown) => Promise<void>;

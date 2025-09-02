@@ -4,8 +4,8 @@ import { type RedisValue } from 'ioredis';
 
 import { CountDownLatch } from '../util/count-down-latch';
 import { createDebug } from '../util/create-debug';
+import { type RedisPipeline } from '../r-loader';
 import { RCommand, type RCommandCallback, type RCommandInput } from './r-command';
-import { type RedisPipeline } from '../rloader/RedisPipeline';
 
 type RCommandQueueConfig = {
   atomic: boolean;

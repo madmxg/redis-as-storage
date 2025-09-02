@@ -4,7 +4,7 @@ import EventEmitter from 'events';
 
 import { createDebug } from '../../util/create-debug';
 import { LinkedQueue } from '../../util/linked-queue';
-import { type RDocumentLoader } from '../../rloader';
+import { type RDocumentLoader } from '../../r-loader';
 import { type RDocumentOperation } from '../r-document-operation';
 
 const debug = createDebug('RDocumentTraverse');

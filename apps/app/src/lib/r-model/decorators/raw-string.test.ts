@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { test, before, after } from 'node:test';
 
-import { RDocumentLoader } from '../../rloader';
+import { RDocumentLoader } from '../../r-loader';
 import { RawString } from './raw-string';
 import { RModel } from '../r-model';
 import Redis from 'ioredis';
