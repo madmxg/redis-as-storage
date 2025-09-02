@@ -1,6 +1,7 @@
 import { type RLoader } from '../r-loader';
 import { type RModel } from './r-model';
 
+// TODO: priority?
 // type HookCallbackOptions = {
 //   priority?: number;
 // };

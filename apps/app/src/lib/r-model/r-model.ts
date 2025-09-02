@@ -1,7 +1,7 @@
 import { type RLoader } from '../r-loader';
 import { type RDocument } from '../r-document';
 import { type RClassManager } from './r-class-manager';
-import { managerFor } from './utils';
+import { managerFor } from './r-utils';
 
 export abstract class RModel implements RDocument {
   #isLoaded = false;

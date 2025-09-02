@@ -1,4 +1,4 @@
-import { annotateDecoratorContext } from '../utils';
+import { annotateDecoratorContext } from '../r-utils';
 import { type RLoader } from '../../r-loader';
 import { type RModelHooks } from '../r-model-hooks';
 import { type RModel } from '../r-model';
@@ -34,7 +34,7 @@ function fetchValue<TModel extends RModel, TValue>(
       parsedValue = value as TValue;
     }
     if (parsedValue == null && options.required) {
-      throw new Error(`MissingRequiredPropertyError_${String(name)}`);
+      throw new Error('MissingRequiredPropertyError', { cause: String(name) });
     } else {
       callback?.(parsedValue ?? undefined);
     }
@@ -66,11 +66,8 @@ export function RawString<TModel extends RModel, TValue = string>(
       .addHook('save', (model, loader) => {
         const value = get.call(model);
         if (options.required && value == undefined) {
-          throw new Error(`MissingRequiredPropertyError_${String(name)}`);
+          throw new Error('MissingRequiredPropertyError', { cause: String(name) });
         }
-
-        // Non-loaded models should always save all properties
-        // if (model.isLoaded && !model.unsavedProperties.has(name)) return;
 
         let serializedValue: string | undefined;
         if (options.serialize) {
@@ -103,7 +100,7 @@ export function RawString<TModel extends RModel, TValue = string>(
       getter = function (): TValue {
         const value = get.call(this);
         if (this.isLoaded && value == undefined) {
-          throw new Error(`MissingRequiredPropertyError_${String(name)}`);
+          throw new Error('MissingRequiredPropertyError', { cause: String(name) });
         }
         return value;
       };

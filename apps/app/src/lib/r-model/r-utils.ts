@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 
 import { RClassManager } from './r-class-manager';
 import { type DefaultHooks, type TypedHooks } from './r-model-hooks';
-import { RSymbol } from './symbols';
+import { RSymbol } from './r-symbols';
 
 if (!Symbol.metadata) {
   Object.assign(Symbol, { metadata: Symbol.for('Symbol.metadata') });
