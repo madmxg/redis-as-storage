@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 
 import * as commandParser from '@ioredis/commands';
-import { type Redis, ChainableCommander } from 'ioredis';
+import { type Redis, type ChainableCommander } from 'ioredis';
 import { createDebug } from '../util/create-debug';
 
 export type RedisCommanderInput = string | Buffer | number;
@@ -14,8 +14,8 @@ export class RPipeline {
 
   #pipeline: ChainableCommander;
   private redis: Redis | null;
-  public readonly pipelineId: number;
   private postWaits: Array<Promise<unknown>> = [];
+  public readonly pipelineId: number;
 
   constructor(redis: Redis) {
     this.redis = redis;

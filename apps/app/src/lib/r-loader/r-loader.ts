@@ -60,15 +60,15 @@ export class RLoader {
     }
   }
 
-  public load(documents: RDocument | RDocument[]): Promise<void> {
+  public load(documents: RDocument | Array<RDocument>): Promise<void> {
     return this.multi(documents, 'load');
   }
 
-  public async save(documents: RDocument | RDocument[]): Promise<void> {
+  public save(documents: RDocument | Array<RDocument>): Promise<void> {
     return this.multi(documents, 'save');
   }
 
-  public async delete(documents: RDocument | RDocument[]): Promise<void> {
+  public delete(documents: RDocument | Array<RDocument>): Promise<void> {
     return this.multi(documents, 'delete');
   }
 
@@ -108,9 +108,9 @@ export class RLoader {
       return;
     }
     const pipeline = new RPipeline(this.redis);
-    const donePromise = this.commandQueue.writeToPipeline(pipeline);
+    const pipelinePromise = this.commandQueue.writeToPipeline(pipeline);
     void pipeline.exec();
-    await donePromise;
+    await pipelinePromise;
   }
 
   public enqueueOperation(spec: RDocumentOperationSpec): void {
