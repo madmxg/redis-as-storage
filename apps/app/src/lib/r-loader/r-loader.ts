@@ -1,9 +1,8 @@
 import { type Redis } from 'ioredis';
 
+import { createDebug } from '../util/create-debug';
 import { ExclusiveRunner } from '../util/exclusive-runner';
 
-import { createDebug } from '../util/create-debug';
-import { RDocumentOperationError } from './errors/RDocumentOperationError';
 import { RCommand, RCommandQueue, type RCommandCallback, type RCommandInput } from '../r-command';
 import {
   RDocumentOperation,
@@ -26,14 +25,14 @@ export class RLoader {
   constructor(redis: Redis) {
     this.redis = redis;
     this.traverse = new RDocumentTraverse(this);
+    this.commandQueue = new RCommandQueue();
     const pThis = new WeakRef(this);
     this.traverse.on('traverse', () => pThis.deref()?.tickRunner.run());
     this.tickRunner = new ExclusiveRunner(() => pThis.deref()?.tick());
-    this.commandQueue = new RCommandQueue();
   }
 
   private async multi(
-    documents: RDocument | RDocument[],
+    documents: RDocument | Array<RDocument>,
     operation: RDocumentOperationName,
   ): Promise<void> {
     const errors: Error[] = [];
@@ -54,8 +53,10 @@ export class RLoader {
           }),
       ),
     );
+
     if (errors.length > 0) {
-      throw new RDocumentOperationError(errors);
+      debug('RLoaderError %s', errors);
+      throw new Error('RLoaderError', { cause: errors });
     }
   }
 
@@ -117,7 +118,11 @@ export class RLoader {
       parent: this.activeOperation,
       ...spec,
     });
-    debug('EnqueueOperation {%s}', operation.operationName);
+    debug(
+      'EnqueueOperation name{%s} parent{%s}',
+      operation.operationName,
+      this.activeOperation?.operationName ?? '-',
+    );
     this.traverse.enqueueOperation(operation);
   }
 
