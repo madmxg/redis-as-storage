@@ -1,12 +1,12 @@
 import { type RDocument } from '../lib/r-document';
 import { type RLoader } from '../lib/r-loader';
 
-export type NoteDocument = {
+export type FilmDocument = {
   id: string;
   text?: string;
 };
 
-export class Note implements RDocument {
+export class Film implements RDocument {
   #exist = false;
   #deleted = false;
 
@@ -42,7 +42,7 @@ export class Note implements RDocument {
     });
   }
 
-  public getDocument(): NoteDocument {
+  public getDocument(): FilmDocument {
     return {
       id: this.id,
       text: this.text,
