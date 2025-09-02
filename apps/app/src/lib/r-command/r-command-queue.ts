@@ -1,20 +1,12 @@
-import { CountDownLatch } from '../util/count-down-latch';
 import { createDebug } from '../util/create-debug';
+import { CountDownLatch } from '../util/count-down-latch';
 import { type RPipeline } from '../r-loader';
-import { RCommand } from './r-command';
+import { type RCommand } from './r-command';
 
 const debug = createDebug('RCommandQueue');
 
 export class RCommandQueue {
-  #commands: Array<RCommand<unknown>>;
-
-  constructor() {
-    this.#commands = [];
-  }
-
-  public get commands(): Array<RCommand<unknown>> {
-    return new Array(...this.#commands);
-  }
+  #commands: Array<RCommand<unknown>> = [];
 
   public writeToPipeline(pipeline: RPipeline): Promise<void> {
     if (this.#commands.length === 0) {
