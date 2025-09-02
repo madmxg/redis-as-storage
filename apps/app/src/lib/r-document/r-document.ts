@@ -2,9 +2,9 @@ import {
   type RDocumentOperationName,
   type RPrepareFunctionName,
   type RAfterFunctionName,
-  type RDocumentPrepare,
-  type RDocumentAfter,
-} from './lifecycle';
+} from './lifecycle/r-document-lifecycle';
+import { type RDocumentPrepare } from './lifecycle/r-document-prepare';
+import { type RDocumentAfter } from './lifecycle/r-document-after';
 
 export interface RDocument extends RDocumentPrepare, RDocumentAfter {}
 

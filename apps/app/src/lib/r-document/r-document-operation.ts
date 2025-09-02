@@ -11,7 +11,7 @@ import {
   type OperationCompleteCallback,
   RDocumentOperationSpec,
 } from './r-document-operation-spec';
-import { type RTraverseOptions } from './traverse';
+import { type RTraverseOptions } from './traverse/r-traverse-options';
 import { createDebug } from '../util/create-debug';
 
 const DEFAULT_TRAVERSE_OPTIONS: RTraverseOptions = {
