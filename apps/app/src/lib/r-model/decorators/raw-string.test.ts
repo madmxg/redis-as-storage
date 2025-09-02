@@ -42,14 +42,40 @@ test('stores strings on a model', async () => {
 
   const loader = new RLoader(redis);
   const model = new RawStringModel(id);
-  model.name = 'charley';
-  model.text = 'hello';
+  model.name = 'name1';
+  model.text = 'text1';
   assert.equal(model.name, 'charley');
   await loader.save(model);
 
   const model2 = new RawStringModel(id);
   await loader.load(model2);
   assert.equal(model2.name, model.name);
+
+  test.after(() => loader.delete(model));
+});
+
+test('deletes redis keys when model is deleted', async () => {
+  const id = randomUUID();
+  const loader = new RLoader(redis);
+
+  const model = new RawStringModel(id);
+  model.name = 'name2';
+  model.text = 'text2';
+  await loader.save(model);
+
+  const model2 = new RawStringModel(id);
+  await loader.load(model2);
+  assert.equal(model2.name, model.name);
+  assert.equal(await redis.exists(getNameKey(model2, 'name')), 1);
+  assert.equal(await redis.exists(getNameKey(model2, 'text')), 1);
+
+  await loader.delete(model);
+  assert.equal(await redis.exists(getNameKey(model2, 'name')), 0);
+  assert.equal(await redis.exists(getNameKey(model2, 'text')), 0);
+
+  const model3 = new RawStringModel(id);
+  await loader.load(model3);
+  assert.equal(model3.name, undefined);
 
   test.after(() => loader.delete(model));
 });
