@@ -1,6 +1,5 @@
 import { type RLoader } from '../r-loader';
 import { type RDocument } from '../r-document';
-import { type RTraverseOptions } from '../r-document';
 import { type RClassManager } from './r-class-manager';
 import { managerFor } from './utils';
 
@@ -11,18 +10,15 @@ export abstract class RModel implements RDocument {
     return managerFor(this);
   }
 
-  prepareLoad(loader: RLoader, options: RTraverseOptions): void {
-    void this.#manager?.runHook('load', this, loader, options);
+  prepareLoad(loader: RLoader): void {
+    void this.#manager?.runHook('load', this, loader);
   }
 
-  prepareSave(loader: RLoader, options: RTraverseOptions): void {
+  prepareSave(loader: RLoader): void {
     void this.#manager?.runHook('save', this, loader);
-    if (options.loadOnSave) {
-      this.prepareLoad(loader, options);
-    }
   }
 
-  prepareDelete(loader: RLoader, _options: RTraverseOptions): void {
+  prepareDelete(loader: RLoader): void {
     void this.#manager?.runHook('delete', this, loader);
   }
 

@@ -9,15 +9,9 @@ import {
 import { type RLoader } from '../r-loader';
 import {
   type OperationCompleteCallback,
-  RDocumentOperationSpec,
+  type RDocumentOperationSpec,
 } from './r-document-operation-spec';
-import { type RTraverseOptions } from './traverse/r-traverse-options';
 import { createDebug } from '../util/create-debug';
-
-const DEFAULT_TRAVERSE_OPTIONS: RTraverseOptions = {
-  includeSubdocs: true,
-  loadOnSave: false,
-};
 
 const debug = createDebug('RDocumentOperation');
 
@@ -104,10 +98,6 @@ export class RDocumentOperation {
     return this.spec.operation;
   }
 
-  public get options(): RTraverseOptions {
-    return this.spec.traverseOptions ?? DEFAULT_TRAVERSE_OPTIONS;
-  }
-
   public get operationCompleteCallback(): OperationCompleteCallback | undefined {
     return this.spec.onOperationComplete;
   }
@@ -126,7 +116,7 @@ export class RDocumentOperation {
 
   public prepare(loader: RLoader): void {
     try {
-      this.document[getPrepareOperation(this.operationName)](loader, this.options, this.customData);
+      this.document[getPrepareOperation(this.operationName)](loader, this.customData);
     } catch (error) {
       debug('TraverseError', { error });
       this.pushError(error as Error);

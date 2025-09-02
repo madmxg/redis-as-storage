@@ -11,4 +11,3 @@ export {
 } from './lifecycle/r-document-lifecycle';
 
 export { RDocumentTraverse } from './traverse/r-document-traverse';
-export { RTraverseOptions } from './traverse/r-traverse-options';

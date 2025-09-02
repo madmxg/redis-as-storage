@@ -9,7 +9,6 @@ import {
   RDocumentOperation,
   RDocumentTraverse,
   type RDocument,
-  type RTraverseOptions,
   type RDocumentOperationSpec,
   type RDocumentOperationName,
 } from '../r-document';
@@ -36,7 +35,6 @@ export class RLoader {
   private async multi(
     documents: RDocument | RDocument[],
     operation: RDocumentOperationName,
-    traverseOptions?: RTraverseOptions,
   ): Promise<void> {
     const errors: Error[] = [];
     await Promise.all(
@@ -46,7 +44,6 @@ export class RLoader {
             this.enqueueOperation({
               document,
               operation,
-              traverseOptions,
               onOperationComplete: (errs?: Error[]) => {
                 if (errs) {
                   errors.push(...errs);
@@ -62,25 +59,16 @@ export class RLoader {
     }
   }
 
-  public load(
-    documents: RDocument | RDocument[],
-    traverseOptions?: RTraverseOptions,
-  ): Promise<void> {
-    return this.multi(documents, 'load', traverseOptions);
+  public load(documents: RDocument | RDocument[]): Promise<void> {
+    return this.multi(documents, 'load');
   }
 
-  public async save(
-    documents: RDocument | RDocument[],
-    traverseOptions?: RTraverseOptions,
-  ): Promise<void> {
-    return this.multi(documents, 'save', traverseOptions);
+  public async save(documents: RDocument | RDocument[]): Promise<void> {
+    return this.multi(documents, 'save');
   }
 
-  public async delete(
-    documents: RDocument | RDocument[],
-    traverseOptions?: RTraverseOptions,
-  ): Promise<void> {
-    return this.multi(documents, 'delete', traverseOptions);
+  public async delete(documents: RDocument | RDocument[]): Promise<void> {
+    return this.multi(documents, 'delete');
   }
 
   public pushActiveOperation(operation: RDocumentOperation): void {

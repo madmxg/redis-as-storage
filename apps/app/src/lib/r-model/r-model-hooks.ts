@@ -1,4 +1,3 @@
-import { type RTraverseOptions } from '../r-document';
 import { type RLoader } from '../r-loader';
 import { type RModel } from './r-model';
 
@@ -17,8 +16,7 @@ export type DefaultHooks = {
 };
 
 export type RModelHooks<TModel extends RModel = RModel> = {
-  // TODO: deprecate passing the options, they could be part of RLoader if needed
-  load: (model: TModel, loader: RLoader, options: RTraverseOptions) => void;
+  load: (model: TModel, loader: RLoader) => void;
   save: (model: TModel, loader: RLoader) => void;
   delete: (model: TModel, loader: RLoader) => void;
   postLoad: (model: TModel, loader: RLoader) => Promise<void>;
