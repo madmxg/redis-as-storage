@@ -1,9 +1,8 @@
 import assert from 'node:assert';
-import { Mock, test, before, after } from 'node:test';
+import { test, before, after } from 'node:test';
 import { randomUUID } from 'node:crypto';
 import { Redis } from 'ioredis';
 
-import { RCommandCallback } from '../r-command';
 import { RDocument } from '../r-document';
 import { RLoader } from './r-loader';
 
@@ -125,38 +124,4 @@ test('Resolves documents only after all commands have returned', async () => {
   assert.equal(doc.innerLoadCommandReturned, true);
   assert.equal(doc.outerLoadCommandReturned, true);
   assert.equal(doc.postLoadInvoked, true);
-});
-
-test('enqueue duplicated commands only once', async ({ mock }) => {
-  class DummyDoc implements RDocument {
-    readonly documentKey = 'dummy';
-    constructor(readonly mock: Mock<RCommandCallback<unknown>>) {}
-
-    prepareLoad(loader: RLoader): void {
-      loader.enqueueCommand('MSET', 'foo', 'FOO', 'bar', 'BAR', 'baz', 'BAZ');
-      loader.enqueueCommandOnce('GETEX', 'foo', this.mock);
-      loader.enqueueCommandOnce('GETEX', 'bar', this.mock);
-      loader.enqueueCommandOnce('GETEX', 'foo', this.mock);
-      loader.enqueueCommandOnce('GETEX', 'baz', this.mock);
-      loader.enqueueCommandOnce('GETEX', 'foo', 'EX', 10, this.mock);
-    }
-    prepareSave(): void {}
-    prepareDelete(): void {}
-
-    async postLoad(): Promise<void> {}
-    async postSave(): Promise<void> {}
-    async postDelete(): Promise<void> {}
-  }
-
-  const mockFn = mock.fn<RCommandCallback<unknown>>();
-  const doc = new DummyDoc(mockFn);
-
-  const loader = RLoader.createInstance(redis);
-  await loader.load(doc);
-
-  assert.equal(mockFn.mock.calls.length, 4);
-  assert.deepEqual(
-    mockFn.mock.calls.map((x) => x.arguments?.[0]),
-    ['FOO', 'BAR', 'BAZ', 'FOO'],
-  );
 });

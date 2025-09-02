@@ -218,25 +218,21 @@ export class RLoader {
       .finally(pendingCommand);
   }
 
-  #enqueueCommand<T>(command: RCommand<T>, { once = false } = {}): boolean {
+  #enqueueCommand<T>(command: RCommand<T>): void {
     const { activeOperation } = this;
     if (!activeOperation) {
-      const accepted = this.commandQueue.enqueueParsedCommand(command, { once });
-      if (!accepted) return false;
+      this.commandQueue.enqueueParsedCommand(command);
       // it's unusual to receive commands outside the context of an operation,
       // but possible.
       // Defer the tick call in case there's a bunch of commands that need to
       // be entered before flushing
+      // TODO: Really need?
       process.nextTick(() => this.tickRunner.run());
       this.captureCommandCallbackContext(command);
-      return true;
     }
 
-    const accepted = this.commandQueue.enqueueParsedCommand(command, { once });
-    if (accepted) {
-      this.captureCommandCallbackContext(command);
-    }
-    return accepted;
+    this.commandQueue.enqueueParsedCommand(command);
+    this.captureCommandCallbackContext(command);
   }
 
   /**
@@ -249,25 +245,8 @@ export class RLoader {
   enqueueCommand<T>(
     commandName: string,
     ...cArgs: [...args: RCommandInput[], callback: RCommandCallback<T>] | [...args: RCommandInput[]]
-  ): boolean {
+  ): void {
     const command = RCommand.parse(commandName, ...cArgs);
-    return this.#enqueueCommand(command);
-  }
-
-  /**
-   * Exactly like enqueueCommand, but will check if the command is already in the
-   * pending queue, if so this becomes a no-op.
-   *
-   * Note that there are no guarantees about when the internal command queue
-   * will be flushed, hence callers should expect that multiple duplicate commands
-   * might be actually sent to Redis even when using this method.
-   */
-  // TODO: rid
-  enqueueCommandOnce<T>(
-    commandName: string,
-    ...cArgs: [...args: RCommandInput[], callback: RCommandCallback<T>] | [...args: RCommandInput[]]
-  ): boolean {
-    const command = RCommand.parse(commandName, ...cArgs);
-    return this.#enqueueCommand(command, { once: true });
+    this.#enqueueCommand(command);
   }
 }

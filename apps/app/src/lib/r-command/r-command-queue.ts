@@ -1,7 +1,7 @@
 import { CountDownLatch } from '../util/count-down-latch';
 import { createDebug } from '../util/create-debug';
 import { type RPipeline } from '../r-loader';
-import { RCommand, type RCommandCallback, type RCommandInput } from './r-command';
+import { RCommand } from './r-command';
 
 const debug = createDebug('RCommandQueue');
 
@@ -66,29 +66,7 @@ export class RCommandQueue {
     return this.#commands.length;
   }
 
-  public enqueueCommand<T>(
-    commandName: string,
-    args: RCommandInput[],
-    callback?: RCommandCallback<T>,
-    { once = false } = {},
-  ): boolean {
-    const command = RCommand.parse<T>(commandName, ...args);
-    if (callback) {
-      command.addResultCallback(callback);
-    }
-    return this.enqueueParsedCommand(command, { once });
-  }
-
-  public enqueueParsedCommand<T>(command: RCommand<T>, { once = false } = {}): boolean {
-    if (once) {
-      const existing = this.#commands.find((c) => c.equals(command));
-      if (existing) {
-        debug('IgnoringDuplicatedCommand', { command: String(command) });
-        return false;
-      }
-    }
-
+  public enqueueParsedCommand<T>(command: RCommand<T>): void {
     this.#commands.push(command as RCommand<unknown>);
-    return true;
   }
 }
