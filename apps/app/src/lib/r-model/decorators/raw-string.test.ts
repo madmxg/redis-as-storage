@@ -44,7 +44,7 @@ test('stores strings on a model', async () => {
   const model = new RawStringModel(id);
   model.name = 'name1';
   model.text = 'text1';
-  assert.equal(model.name, 'charley');
+  assert.equal(model.name, 'name1');
   await loader.save(model);
 
   const model2 = new RawStringModel(id);

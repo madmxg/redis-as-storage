@@ -23,6 +23,7 @@ export abstract class RModel implements RDocument {
   }
 
   async postLoad(loader: RLoader, _customData: unknown): Promise<void> {
+    this.#isLoaded = true;
     await this.#manager?.runHook('postLoad', this, loader);
   }
 

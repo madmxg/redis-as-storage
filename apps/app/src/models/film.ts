@@ -8,7 +8,7 @@ export type FilmDocument = {
 };
 
 export class Film implements RDocument {
-  #exist = false;
+  #exists = false;
   #deleted = false;
 
   public readonly id: string;
@@ -23,11 +23,11 @@ export class Film implements RDocument {
     loader.enqueueCommand<string>('GET', `${this.id}:title`, (title) => {
       loader.enqueueCommand<string>('GET', `${this.id}:director`, (director) => {
         if (typeof title === 'string') {
-          this.#exist = true;
+          this.#exists = true;
           this.title = title;
         }
         if (typeof director === 'string') {
-          this.#exist = true;
+          this.#exists = true;
           this.director = director;
         }
       });
@@ -38,14 +38,14 @@ export class Film implements RDocument {
     if (typeof this.title !== 'undefined') {
       loader.enqueueCommand<'OK'>('SET', `${this.id}:title`, this.title, (result) => {
         if (result === 'OK') {
-          this.#exist = true;
+          this.#exists = true;
         }
       });
     }
     if (typeof this.director !== 'undefined') {
       loader.enqueueCommand<'OK'>('SET', `${this.id}:director`, this.director, (result) => {
         if (result === 'OK') {
-          this.#exist = true;
+          this.#exists = true;
         }
       });
     }
@@ -67,8 +67,8 @@ export class Film implements RDocument {
     };
   }
 
-  public get exist(): boolean {
-    return this.#exist;
+  public get exists(): boolean {
+    return this.#exists;
   }
 
   public get deleted(): boolean {

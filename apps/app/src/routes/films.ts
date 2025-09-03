@@ -22,7 +22,7 @@ export async function createFilm(
 
   await loader.save(film);
 
-  res.status(200).json(film.getDocument());
+  res.status(201).json(film.getDocument());
 }
 
 export async function readFilm(
@@ -35,7 +35,7 @@ export async function readFilm(
   const film = new Film(filmId);
   await loader.load(film);
 
-  if (!film.exist) {
+  if (!film.exists) {
     res.status(404).json({});
     return;
   }

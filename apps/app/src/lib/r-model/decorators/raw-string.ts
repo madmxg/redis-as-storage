@@ -54,7 +54,7 @@ export function RawString<TModel extends RModel, TValue = string>(
 
     manager
       .addHook('load', async (model, loader) => {
-        // n.b. due to how RDocumentLoaders works, we don't want to reject any
+        // n.b. due to how RLoaders works, we don't want to reject any
         // thrown errors here, as they will be caught and logged by the loader
         return new Promise<void>((resolve) => {
           fetchValue(name, model, loader, options, (value) => {
