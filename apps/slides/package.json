@@ -11,7 +11,7 @@
     "archive": "shower archive",
     "bundle": "shower bundle",
     "publish": "shower publish",
-    "dev": "rspack dev",
+    "start:dev": "rspack dev",
     "build": "rspack build",
     "preview": "rspack preview"
   },

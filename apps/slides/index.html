@@ -54,12 +54,35 @@
     </section>
 
     <section class="slide">
-      <h2>&nbsp;</h2>
-      <ul>
-        <li>Backend</li>
-        <li>+</li>
-        <li>Database</li>
-      </ul>
+      <h2 class="shout shout-e">Backend 💚 Database</h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">Database 🤷‍♂️</h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">Specificity</h2>
+    </section>
+
+    <section class="slide">
+      <h2>Specificity</h2>
+      <ol>
+        <li>Highloads</li>
+        <li>Response time / latency</li>
+        <li>Hierarchical data structure</li>
+        <li>Data life cycle &lt; 3 days</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>Specificity</h2>
+      <ol>
+        <li><strong>Highloads</strong></li>
+        <li class="unmarked">Response time / latency</li>
+        <li class="unmarked">Hierarchical data structure</li>
+        <li class="unmarked">Data life cycle &lt; 3 days</li>
+      </ol>
     </section>
 
     <section class="slide">
@@ -71,17 +94,32 @@
     </section>
 
     <section class="slide">
+      <h2>Specificity</h2>
+      <ol>
+        <li class="unmarked">Highloads</li>
+        <li><strong>Response time / latency</strong></li>
+        <li class="unmarked">Hierarchical data structure</li>
+        <li class="unmarked">Data life cycle &lt; 3 days</li>
+      </ol>
+    </section>
+
+    <section class="slide">
       <img class="cover h" src="assets/images/grafana/latency-all.png" />
     </section>
 
     <section class="slide">
-      <h2>&nbsp;</h2>
-      <h3 class="shout shout-e">Backend 💚 Database</h3>
+      <h2>Specificity</h2>
+      <ol>
+        <li class="unmarked">Highloads</li>
+        <li class="unmarked">Response time / latency</li>
+        <li><strong>Hierarchical data structure</strong></li>
+        <li class="unmarked">Data life cycle &lt; 3 days</li>
+      </ol>
     </section>
 
     <section class="slide">
-      <h2>&nbsp;</h2>
-      <h3 class="shout shout-e">Database 🤷‍♂️</h3>
+      <h2 class="shout shout-e">Meeting → Participant → Session → Stream</h2>
+      <sup class="todo">TODO:</sup>
     </section>
 
     <section class="slide">
@@ -184,33 +222,33 @@
     </section>
 
     <section class="slide">
+      <h2>&nbsp;</h2>
       <blockquote>
         <p>
           Redis is an in-memory data store used by millions of developers as a cache, vector
           database, <strong>document database</strong>, streaming engine, and message broker.
         </p>
       </blockquote>
-      <img class="cover w-80" src="assets/images/redis-logo.svg" />
+      <img class="cover w-60" src="assets/images/redis-logo.svg" />
     </section>
 
     <section class="slide">
       <h2>Redis benefits</h2>
       <ol>
-        <li class="unmarked">// TODO:</li>
+        <li class="unmarked">-</li>
       </ol>
-    </section>
-
-    <section class="slide">
-      <h2>Let's code</h2>
+      <sup class="todo">TODO:</sup>
     </section>
 
     <section class="slide">
       <h2>Our wishes</h2>
       <ol>
         <li>Performance</li>
-        <li>ORM style</li>
-        <li>..</li>
+        <li>ORM/ODM style</li>
+        <li>Decorators</li>
+        <li>-</li>
       </ol>
+      <sup class="todo">TODO:</sup>
     </section>
 
     <section class="slide">
@@ -223,92 +261,59 @@
       </ol>
     </section>
 
-    <section class="slide">
-      <h2>basic app</h2>
-      <pre>
-        <code>
-          // TODO: Code example for redis-om-node
-        </code>
-      </pre>
-    </section>
-
-    <section class="slide">
-      <h2>basic app</h2>
-      <pre>
-        <code>
-          // TODO: Code example for Nohm
-        </code>
-      </pre>
-    </section>
-
-    <section class="slide">
-      <h2>basic app</h2>
-      <pre>
-        <code>
-          // TODO: Code example for classic ioredis
-          import { Redis, type RedisOptions } from 'ioredis';
-
-          const options: RedisOptions = {
-            host: 'localhost',
-            port: 6379,
-            db: 0,
-          };
-          export const redis = new Redis(options);
-        </code>
-      </pre>
-    </section>
-
-    <section class="slide">
-      <h2>Own way</h2>
-    </section>
-
-    <section class="slide">
-      <h2>Pre-requisite</h2>
-      <pre>
-        <code>
-          # compose.yaml
-          services:
-            redis:
-              image: redis/redis-stack
-              ports:
-                - 6379:6379
-        </code>
-      </pre>
-    </section>
-
-    <section class="slide">
+    <!-- <section class="slide">
       <h2>Packages</h2>
       <ol>
         <li>ioredis</li>
         <li>typescript</li>
         <li>express</li>
       </ol>
-    </section>
-
-    <!-- <section class="slide">
-      <h2>basic app</h2>
-      <pre>
-        <code>
-          # app.ts
-          app.get('/set', async (req, res) => {
-            await redis.set(req.query.key, req.query.value);
-            res.status(200).send('OK');
-          });
-          app.get('/get', async (req, res) => {
-            const value = await redis.get(req.query.key);
-            res.status(200).send(value);
-          });
-        </code>
-      </pre>
+      <sup class="todo">TODO:</sup>
     </section> -->
 
     <section class="slide">
-      <h2>Introduce pipelines</h2>
+      <h2>Redis pipeline</h2>
     </section>
 
-    <!-- <section class="slide">
-      <h2>🚧 about Object Model</h2>
-    </section> -->
+    <section class="slide">
+      <h2>&nbsp;</h2>
+      <blockquote>
+        Pipelining is not just a way to <strong>reduce the latency cost</strong> associated with the
+        round trip time, it actually greatly improves
+        <strong>the number of operations you can perform per second</strong> in a given Redis
+        server.
+      </blockquote>
+    </section>
+
+    <section class="slide">
+      <h2>Without pipelining</h2>
+      <pre>
+        <code>Client: INCR X</code>
+        <code>Server: 1</code>
+        <code>Client: INCR X</code>
+        <code>Server: 2</code>
+        <code>Client: INCR X</code>
+        <code>Server: 3</code>
+        <code>Client: INCR X</code>
+        <code>Server: 4</code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2>With pipelining</h2>
+      <pre>
+        <code>Client: INCR X</code>
+        <code>Client: INCR X</code>
+        <code>Client: INCR X</code>
+        <code>Server: 1</code>
+        <code>Server: 2</code>
+        <code>Server: 3</code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">Let's code</h2>
+    </section>
 
     <section class="slide">
       <h2>🚧 about <code>node:async_hooks</code></h2>
@@ -339,8 +344,13 @@
     </section>
 
     <section class="slide">
+      <h2 class="shout shout-e">Node.js 💚 Redis</h2>
+    </section>
+
+    <section class="slide">
       <div id="root"></div>
-      <!-- Create your first slide -->
+      <h2 class="shout shout-e">QR | QA</h2>
+      <sup class="todo">TODO:</sup>
     </section>
 
     <footer class="badge">

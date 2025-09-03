@@ -45,9 +45,15 @@
   background-color: #acb8c3;
 }
 
-.cover.w-80,
-.cover.width-80 {
-  width: 80%;
+.cover.w-60,
+.cover.width-60 {
+  width: 60%;
   max-height: none;
-  margin-top: 2em;
+  margin-top: 5em;
+}
+
+sup.todo {
+  background-color: yellow;
+  border: yellowgreen dashed 1px;
+  padding: 0.4em;
 }
