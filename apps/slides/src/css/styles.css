@@ -45,6 +45,10 @@
   background-color: #acb8c3;
 }
 
+.slide.rc {
+  background-color: #ff9443;
+}
+
 .cover.w-60,
 .cover.width-60 {
   width: 60%;
@@ -52,8 +56,38 @@
   margin-top: 5em;
 }
 
+.cover.w-75,
+.cover.width-75 {
+  width: 75%;
+  max-height: none;
+  margin-top: 2.5em;
+}
+
+.cover.w-100,
+.cover.width-100 {
+  width: 100%;
+  max-height: none;
+  margin-top: 2em;
+}
+
 sup.todo {
   background-color: yellow;
   border: yellowgreen dashed 1px;
   padding: 0.4em;
+}
+
+.slide .columns.two pre code {
+  width: initial;
+}
+
+code > span.code-result {
+  background-color: rgba(0, 0, 255, 0.2);
+}
+
+code > span.code-command {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+code > span.code-args {
+  background-color: rgba(0, 128, 0, 0.2);
 }

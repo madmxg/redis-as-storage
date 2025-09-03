@@ -33,6 +33,7 @@ export async function createWebServer(): Promise<void> {
     loader.enqueueCommand<string>('GET', 'test', (_getResult) => {
       //
     });
+    await loader['tick']();
     res.status(200).send(`Hello World! ${requestId}`);
   });
 

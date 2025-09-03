@@ -235,6 +235,14 @@
     <section class="slide">
       <h2>Redis benefits</h2>
       <ol>
+        <li>Performance</li>
+        <li>Pipelining</li>
+        <li>...</li>
+        <li class="unmarked">
+          <a href="https://survey.stackoverflow.co/2025/technology#1-databases" target="_blank"
+            >Stack Overflow 2025 Developer Survey (Databases)</a
+          >
+        </li>
         <li class="unmarked">-</li>
       </ol>
       <sup class="todo">TODO:</sup>
@@ -261,18 +269,8 @@
       </ol>
     </section>
 
-    <!-- <section class="slide">
-      <h2>Packages</h2>
-      <ol>
-        <li>ioredis</li>
-        <li>typescript</li>
-        <li>express</li>
-      </ol>
-      <sup class="todo">TODO:</sup>
-    </section> -->
-
     <section class="slide">
-      <h2>Redis pipeline</h2>
+      <h2 class="shout shout-e">Redis pipeline</h2>
     </section>
 
     <section class="slide">
@@ -297,6 +295,7 @@
         <code>Client: INCR X</code>
         <code>Server: 4</code>
       </pre>
+      <sup class="todo">TODO: diagram</sup>
     </section>
 
     <section class="slide">
@@ -309,6 +308,7 @@
         <code>Server: 2</code>
         <code>Server: 3</code>
       </pre>
+      <sup class="todo">TODO: diagram</sup>
     </section>
 
     <section class="slide">
@@ -316,31 +316,98 @@
     </section>
 
     <section class="slide">
-      <h2>🚧 about <code>node:async_hooks</code></h2>
+      <!-- In this talk, we'll build our understanding of the system from the ground up, starting with
+      the smallest components and working our way to the complete architecture. -->
+      <h2 class="shout shout-e">From the ground up</h2>
     </section>
 
     <section class="slide">
-      <h2>🚧 about document loader</h2>
+      <h2>RCommandConfig</h2>
+      <pre>
+        <code>&gt; SET mykey1 "10"</code>
+        <code>&lt; "OK"</code>
+        <code>&gt; INCR mykey1</code>
+        <code>&lt; (integer) 11</code>
+        <code>&gt; SET mykey2 "1minute" EX 60</code>
+        <code>&lt; "OK"</code>
+        <code>&gt; DEL mykey1 mykey2 mykey3</code>
+        <code>&lt; (integer) 2</code>
+      </pre>
     </section>
 
     <section class="slide">
-      <h2>🚧 about command queue & MULTI & pipeline</h2>
+      <h2>RCommandConfig</h2>
+      <div class="columns two">
+        <pre>
+          <code>&gt; <span class="code-command">SET</span><span class="code-args"> mykey1 "10"</span></code>
+          <code>&lt; <span class="code-result">"OK"</span></code>
+          <code>&gt; <span class="code-command">INCR</span><span class="code-args"> mykey1</span></code>
+          <code>&lt; <span class="code-result">(integer) 11</span></code>
+          <code>&gt; <span class="code-command">SET</span><span class="code-args"> mykey2 "1minute" EX 60</span></code>
+          <code>&lt; <span class="code-result">"OK"</span></code>
+          <code>&gt; <span class="code-command">DEL</span><span class="code-args"> mykey1 mykey2 mykey3</span></code>
+          <code>&lt; <span class="code-result">(integer) 2</span></code>
+        </pre>
+        <span>
+          <ul>
+            <li>🔴 - string (commandName)</li>
+            <li>🟢 - Array&lt;RCommandInput&gt;</li>
+            <li>🔵 - RCommandCallback&lt;T&gt;</li>
+          </ul>
+        </span>
+      </div>
+    </section>
+
+    <section class="slide rc">
+      <img class="cover w" src="assets/code/r-command-config.png" alt="type RCommandConfig" />
+    </section>
+
+    <section class="slide rc">
+      <img
+        class="cover h"
+        src="assets/code/r-command-queue-diagram.png"
+        alt="RCommandQueue diagram"
+      />
+    </section>
+
+    <section class="slide rc">
+      <img class="cover w" src="assets/code/r-command-queue.png" alt="class RCommandQueue" />
     </section>
 
     <section class="slide">
-      <h2>🚧 about traverce</h2>
+      <h2 class="shout shout-e">🚧 about <code>RPipeline</code>🚧</h2>
     </section>
 
     <section class="slide">
-      <h2>🚧 about Model with @decorators</h2>
+      <h2 class="shout shout-e">🚧 about <code>RLoader</code>🚧></h2>
     </section>
 
     <section class="slide">
-      <h2>🚧 about client side cache</h2>
+      <h2 class="shout shout-e">🚧 about <code>RDocument</code>🚧></h2>
     </section>
 
     <section class="slide">
-      <h2>🚧 performance results</h2>
+      <h2 class="shout shout-e">🚧 about <code>RDocumentTraverse</code>🚧></h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">🚧 about <code>RModel</code>🚧></h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">🚧 about <code>Decorators & @RawString</code>🚧></h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">Compose all to one</h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">Demo time</h2>
+    </section>
+
+    <section class="slide">
+      <h2>🚧 What we reach 🚧</h2>
     </section>
 
     <section class="slide">
