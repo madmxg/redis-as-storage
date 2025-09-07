@@ -18,7 +18,7 @@ export class RCommandQueue {
     this.#commands = [];
 
     commands.forEach((command: RCommand<unknown>) => {
-      const keys = pipeline.getCommandKeys(command.name, command.args ?? []);
+      const commandArgs = command.args ?? [];
       try {
         const runOnPipeline = (): Promise<unknown> =>
           new Promise<unknown>((resolve) => {
@@ -35,7 +35,12 @@ export class RCommandQueue {
             latch.countDown();
           });
       } finally {
-        debug('Command name{%s} keys{%s} with [%d]', command.name, keys, pipeline.pipelineId);
+        debug(
+          'Command name{%s} commandArgs{%s} with [%d]',
+          command.name,
+          commandArgs,
+          pipeline.pipelineId,
+        );
       }
     });
 

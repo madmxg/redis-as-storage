@@ -37,7 +37,7 @@ export class RDocumentOperation {
       delete this.spec.parent;
       parent.addChild(this);
     }
-    debug('NewOperation');
+    debug('NewOperation {%s}', this.operationName);
   }
 
   public get nodeComplete(): boolean {
@@ -112,7 +112,9 @@ export class RDocumentOperation {
 
   public prepare(loader: RLoader): void {
     try {
-      this.document[getPrepareOperation(this.operationName)](loader, this.customData);
+      const prepareOperation = getPrepareOperation(this.operationName);
+      debug('PrepareOperation {%s}', prepareOperation);
+      this.document[prepareOperation](loader, this.customData);
     } catch (error) {
       debug('TraverseError', { error });
       this.pushError(error as Error);

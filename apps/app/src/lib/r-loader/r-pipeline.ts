@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 
-import * as commandParser from '@ioredis/commands';
 import { type Redis, type ChainableCommander } from 'ioredis';
 import { createDebug } from '../util/create-debug';
 
@@ -21,26 +20,6 @@ export class RPipeline {
     this.redis = redis;
     this.#pipeline = redis.pipeline();
     this.pipelineId = RPipeline.instanceCount++;
-  }
-
-  #getCustomCommand(name: string): { numberOfKeys: number; readOnly: boolean } | undefined {
-    if (this.redis && name in this.redis.scriptsSet) {
-      return this.redis.scriptsSet[name as keyof typeof this.redis.scriptsSet];
-    }
-  }
-
-  public getCommandKeys(name: string, args: Array<RedisCommanderInput>): string[] {
-    const name_ = name.toLowerCase();
-    const customCommand = this.#getCustomCommand(name_);
-    if (customCommand) {
-      return args.slice(0, customCommand.numberOfKeys).map(String);
-    }
-    if (!commandParser.exists(name_)) {
-      return args.filter((arg) => typeof arg === 'string');
-    }
-
-    const indices = commandParser.getKeyIndexes(name_, args);
-    return indices.map((i) => String(args[i]));
   }
 
   public waitAfterExec(promise: Promise<unknown>): void {
