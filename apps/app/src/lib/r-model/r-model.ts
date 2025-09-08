@@ -22,16 +22,16 @@ export abstract class RModel implements RDocument {
     void this.#manager?.runHook('delete', this, loader);
   }
 
-  async postLoad(loader: RLoader, _customData: unknown): Promise<void> {
+  async postLoad(loader: RLoader): Promise<void> {
     this.#isLoaded = true;
     await this.#manager?.runHook('postLoad', this, loader);
   }
 
-  async postSave(loader: RLoader, _customData: unknown): Promise<void> {
+  async postSave(loader: RLoader): Promise<void> {
     await this.#manager?.runHook('postSave', this, loader);
   }
 
-  async postDelete(loader: RLoader, _customData: unknown): Promise<void> {
+  async postDelete(loader: RLoader): Promise<void> {
     await this.#manager?.runHook('postDelete', this, loader);
   }
 

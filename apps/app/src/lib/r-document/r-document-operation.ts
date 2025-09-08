@@ -98,10 +98,6 @@ export class RDocumentOperation {
     return this.spec.onOperationComplete;
   }
 
-  public get customData(): unknown {
-    return this.spec.customData;
-  }
-
   private addChild(node: RDocumentOperation): void {
     this.children.push(node);
   }
@@ -114,7 +110,7 @@ export class RDocumentOperation {
     try {
       const prepareOperation = getPrepareOperation(this.operationName);
       debug('PrepareOperation {%s}', prepareOperation);
-      this.document[prepareOperation](loader, this.customData);
+      this.document[prepareOperation](loader);
     } catch (error) {
       debug('TraverseError', { error });
       this.pushError(error as Error);
@@ -124,7 +120,7 @@ export class RDocumentOperation {
 
   public async postProcess(loader: RLoader): Promise<void> {
     assert(!this.postProcessComplete, 'PostProcessAlreadyComplete');
-    await this.document[getAfterOperation(this.operationName)](loader, this.customData);
+    await this.document[getAfterOperation(this.operationName)](loader);
     this.markPostProcessed();
   }
 

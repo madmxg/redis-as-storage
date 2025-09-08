@@ -7,7 +7,6 @@ export type OperationCompleteCallback = (errors?: Array<Error>) => void;
 export type RDocumentOperationSpec = {
   document: RDocument;
   operation: RDocumentOperationName;
-  customData?: unknown;
   onOperationComplete?: OperationCompleteCallback;
   parent?: RDocumentOperation;
 };
