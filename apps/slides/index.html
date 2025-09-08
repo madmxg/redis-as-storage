@@ -433,15 +433,41 @@
     </section>
 
     <section class="slide">
-      <h2 class="shout shout-e">🚧 about <code>RModel</code>🚧></h2>
+      <h2>JavaScript Decorators</h2>
+      <ol>
+        <li><a href="https://github.com/tc39/proposal-decorators" target="_blank">Decorators (Stage 3)</a></li>
+        <li><a href="https://github.com/tc39/proposal-decorator-metadata" target="_blank">Decorator Metadata (Stage 3)</a></li>
+      </ol>
     </section>
 
     <section class="slide">
-      <h2 class="shout shout-e">🚧 about <code>Decorators & @RawString</code>🚧></h2>
+      <h2>Pollyfill for Decorators Metadata</h2>
+      <pre>
+        <code>if (!Symbol.metadata) {</code>
+        <code>  Object.assign(Symbol, { metadata: Symbol.for('Symbol.metadata') });</code>
+        <code>}</code>
+      </pre>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">🚧 about <code>RModel</code>🚧</h2>
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">🚧 about <code>@RawString decorator</code>🚧</h2>
     </section>
 
     <section class="slide">
       <h2 class="shout shout-e">Compose all to one</h2>
+    </section>
+
+    <section class="slide rc">
+      <img class="cover h" src="assets/code/r-my-document-class.png" alt="class MyDocument" />
+    </section>
+
+    <section class="slide rc">
+      <img class="cover h" src="assets/code/r-my-document-class.png" alt="class Planet" />
+      <sup class="todo">TODO: class Planet</sup>
     </section>
 
     <section class="slide">
