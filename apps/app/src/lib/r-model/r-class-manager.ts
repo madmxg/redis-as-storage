@@ -5,15 +5,6 @@ const debug = createDebug('RClassManager');
 
 export class RClassManager<THooks extends TypedHooks<THooks> = DefaultHooks> {
   #hooks: Map<PropertyKey, Set<HookCallback>> = new Map();
-  #annotations: Array<[symbol, unknown]> = [];
-
-  annotate<T>(tag: symbol, value: T): void {
-    this.#annotations.push([tag, value]);
-  }
-
-  getAnnotations<T = unknown>(tag: symbol): Array<T> {
-    return this.#annotations.filter(([t]) => t === tag).map(([, value]) => value as T);
-  }
 
   addHook<TName extends keyof THooks>(hookName: TName, hookCallback: THooks[TName]): this {
     let hooks = this.#hooks.get(hookName);
