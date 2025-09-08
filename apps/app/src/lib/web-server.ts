@@ -2,7 +2,6 @@ import http from 'node:http';
 import express from 'express';
 
 import { rootLogger } from './log';
-import { redis } from './redis';
 import { getStoreValue } from './request-store';
 import { initializeStoreMiddleware } from '../middlewares/initialize-store';
 import { populateStoreMiddleware } from '../middlewares/populate-store';
