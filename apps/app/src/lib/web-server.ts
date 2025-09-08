@@ -27,38 +27,11 @@ export async function createWebServer(): Promise<void> {
   app.get('/', async (_req, res) => {
     const requestId = getStoreValue('requestId');
     const loader = getStoreValue('loader');
-    loader.enqueueCommand<'OK'>('SET', 'test', 'test', (_setResult) => {
-      //
-    });
-    loader.enqueueCommand<string>('GET', 'test', (_getResult) => {
-      //
-    });
+    loader.enqueueCommand<'OK'>('SET', 'test', 'test');
+    loader.enqueueCommand<string>('GET', 'test');
+
     await loader['tick']();
     res.status(200).send(`Hello World! ${requestId}`);
-  });
-
-  app.get('/set', async (req, res) => {
-    if (typeof req.query.key !== 'string') {
-      res.status(400).send('Key must be a string');
-      return;
-    }
-    if (typeof req.query.value !== 'string') {
-      res.status(400).send('Value must be a string');
-      return;
-    }
-
-    await redis.set(req.query.key, req.query.value);
-    res.status(200).send('OK');
-  });
-  app.get('/get', async (req, res) => {
-    if (typeof req.query.key !== 'string') {
-      res.status(400).send('Key must be a string');
-      return;
-    }
-
-    const value = await redis.get(req.query.key);
-
-    res.status(200).send(value);
   });
 
   const httpServer = http.createServer(app);
