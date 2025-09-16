@@ -1,3 +1,8 @@
+:root {
+  --color-rc-blue: #0684bc;
+  --color-rc-orange: #ff7a00;
+}
+
 .shower {
   --slide-ratio: calc(16 / 9);
 }
@@ -70,6 +75,23 @@
   margin-top: 2em;
 }
 
+.cover.w-2048 {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  transform: scaleX(-1);
+  transform-origin: center;
+}
+
+.rc-logo {
+  position: absolute;
+  top: 2em;
+  left: 4em;
+  width: 6em;
+  height: auto;
+}
+
 sup.todo {
   background-color: yellow;
   border: yellowgreen dashed 1px;
@@ -90,4 +112,12 @@ code > span.code-command {
 
 code > span.code-args {
   background-color: rgba(0, 128, 0, 0.2);
+}
+
+.slide::after {
+  background-image: url('../../public/assets/ribbon-branded/ribbon-rc.svg');
+}
+
+.progress::before {
+  background-color: var(--color-rc-blue);
 }
