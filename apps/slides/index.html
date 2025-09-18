@@ -212,6 +212,10 @@
       </h2>
     </section>
 
+    <section class="slide rc">
+      <img class="cover w" src="assets/images/so.png" alt="stackoverflow developer survey" />
+    </section>
+
     <section class="slide">
       <h2>Redis benefits</h2>
       <ol>
@@ -241,30 +245,28 @@
     </section>
 
     <section class="slide rc">
-      <img class="cover w" src="assets/images/so.png" alt="stackoverflow developer survey" />
-    </section>
-
-    <section class="slide">
-      <h2>Our wishes</h2>
-      <ol>
-        <li>Performance</li>
-        <li>Support for rich data model</li>
-        <li>Flat traversal for deeply structured data</li>
-        <li>Abstract Redis from business logic</li>
-      </ol>
-    </section>
-
-    <section class="slide rc">
       <img class="cover h" src="assets/code/r-my-document-class.png" alt="class MyDocument" />
     </section>
 
     <section class="slide">
-      <h2>analysis of existing solutions</h2>
+      <h2>Analysis of existing solutions</h2>
       <ol>
+        <li>
+          <a href="https://github.com/redis/redis-om-node" target="_blank">redis-om-node 🔗</a>
+          <ul>
+            <li>OM based on json/hash</li>
+            <li>No support for pipelining</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://github.com/maritz/nohm" target="_blank">Nohm 🔗</a>
+          <ul>
+            <li>OM based on hash</li>
+            <li>No support for pipelining</li>
+          </ul>
+        </li>
         <li>ioredis</li>
         <li>node-redis</li>
-        <li>redis-om-node</li>
-        <li>Nohm</li>
       </ol>
     </section>
 
@@ -291,10 +293,7 @@
         <code>Server: 2</code>
         <code>Client: INCR X</code>
         <code>Server: 3</code>
-        <code>Client: INCR X</code>
-        <code>Server: 4</code>
       </pre>
-      <sup class="todo">TODO: diagram</sup>
     </section>
 
     <section class="slide">
@@ -307,17 +306,24 @@
         <code>Server: 2</code>
         <code>Server: 3</code>
       </pre>
-      <sup class="todo">TODO: diagram</sup>
-    </section>
-
-    <section class="slide">
-      <h2 class="shout shout-e">Let's code</h2>
     </section>
 
     <section class="slide">
       <!-- In this talk, we'll build our understanding of the system from the ground up, starting with
       the smallest components and working our way to the complete architecture. -->
-      <h2 class="shout shout-e">From the ground up</h2>
+      <h2 class="shout shout-e">Let's code<br /><br />from the ground up</h2>
+    </section>
+
+    <section class="slide rc">
+      <img class="cover w" src="assets/images/schema-01.png" alt="schema" />
+    </section>
+
+    <section class="slide rc">
+      <img class="cover w" src="assets/images/schema-02.png" alt="schema" />
+    </section>
+
+    <section class="slide">
+      <h2 class="shout shout-e">RCommand</h2>
     </section>
 
     <section class="slide">
@@ -363,7 +369,7 @@
 
     <section class="slide rc">
       <img
-        class="cover h"
+        class="cover w"
         src="assets/code/r-command-queue-diagram.png"
         alt="RCommandQueue diagram"
       />
@@ -451,7 +457,6 @@
         src="assets/code/r-my-document-save.png"
         alt="class MyDocument (save with loader)"
       />
-      <sup class="todo">TODO: how to save doc diagram</sup>
     </section>
 
     <section class="slide">
@@ -473,7 +478,8 @@
     <section class="slide">
       <h2>Pollyfill for Decorators Metadata</h2>
       <pre>
-        <code></code>
+        <code>// Symbol.metadata pollyfill</code>
+        <code>&nbsp; </code>
         <code>if (!Symbol.metadata) {</code>
         <code>  Object.assign(Symbol, { metadata: Symbol.for('Symbol.metadata') });</code>
         <code>}</code>
@@ -509,7 +515,20 @@
       <img class="cover h" src="assets/code/r-my-document-class.png" alt="class MyDocument" />
     </section>
 
-    <section class="slide rc">
+    <section class="slide">
+      <h2>What else do we have?</h2>
+      <ol>
+        <li>Various decorators for the RModel</li>
+        <li>Transaction support</li>
+        <li>Native Redis client-side caching support</li>
+        <li>
+          Hierarchical data structures can be efficiently managed through flat traversal patterns in
+          Redis
+        </li>
+      </ol>
+    </section>
+
+    <!-- <section class="slide rc">
       <img class="cover w" src="assets/code/class-planet-explain-1.png" alt="class Planet" />
     </section>
     <section class="slide rc">
@@ -522,26 +541,24 @@
     <section class="slide rc">
       <img class="cover h" src="assets/code/r-my-document-class.png" alt="class Planet" />
       <sup class="todo">TODO: class Planet</sup>
-    </section>
-
-    <section class="slide">
-      <h2>What we reach</h2>
-      <ol>
-        <li>one</li>
-        <li>two</li>
-        <li>...</li>
-      </ol>
-      <sup class="todo">TODO: results</sup>
-    </section>
+    </section> -->
 
     <section class="slide">
       <h2>Takeaways</h2>
       <ol>
-        <li>one</li>
-        <li>two</li>
-        <li>...</li>
+        <li>Redis can serve as a primary database for high-performance applications</li>
+        <li>
+          Custom Redis ORM with pipelining support significantly improves performance compared to
+          existing solutions
+        </li>
+        <li>
+          Elegant abstraction of Redis operations from business logic using TypeScript decorators
+        </li>
+        <li>
+          Hierarchical data structures can be efficiently managed through flat traversal patterns in
+          Redis
+        </li>
       </ol>
-      <sup class="todo">TODO: Takeaways</sup>
     </section>
 
     <section class="slide">
