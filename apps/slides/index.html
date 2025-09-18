@@ -33,11 +33,11 @@
     <section class="slide">
       <h2 class="">What is this presentation about?</h2>
       <ol>
-        <li class="next">Problem</li>
-        <li class="next">Database overview</li>
-        <li class="next">Redis intro</li>
-        <li class="next">How we use Redis</li>
-        <li class="next">Wrap it out</li>
+        <li>Problem</li>
+        <li>Quick database overview</li>
+        <li>Redis intro</li>
+        <li>How we use Redis</li>
+        <li>Wrap it out</li>
       </ol>
     </section>
 
@@ -53,6 +53,10 @@
       <h3 class="shout shout-e">
         My team and I are developing a service that manages the client's state inside a meeting.
       </h3>
+    </section>
+
+    <section class="slide">
+      <img class="cover w" src="assets/rc/02-rcv.webp" />
     </section>
 
     <section class="slide">
@@ -100,6 +104,9 @@
       <ol>
         <li class="unmarked">Highloads</li>
         <li><strong>Response time / latency</strong></li>
+        <!-- For example, let's imagine that the user decided to mute themselves,
+         and it would be very strange if this happened with a delay of a second
+         after hitting the button -->
         <li class="unmarked">Hierarchical data structure</li>
         <li class="unmarked">Data life cycle &lt; 3 days</li>
       </ol>
@@ -120,8 +127,7 @@
     </section>
 
     <section class="slide">
-      <h2 class="shout shout-e">Meeting → Participant → Session → Stream</h2>
-      <sup class="todo">TODO:</sup>
+      <h2 class="shout shout-e">Meeting → Room → <br /><br />→ Participant → Session → Stream</h2>
     </section>
 
     <section class="slide">
@@ -135,58 +141,8 @@
     </section>
 
     <section class="slide">
-      <h2 class="shout shout-e" style="top: 40%">&nbsp;</h2>
-      <h3 class="shout shout-e">DBMS</h3>
-    </section>
-
-    <section class="slide">
       <h2 class="shout shout-e" style="top: 40%">Database Management System</h2>
       <h3 class="shout shout-e">DBMS</h3>
-    </section>
-
-    <section class="slide">
-      <h2>Database</h2>
-      <ol>
-        <li>Relational database (SQL)</li>
-      </ol>
-    </section>
-
-    <section class="slide">
-      <h2>Database</h2>
-      <ol>
-        <li>Relational database (SQL)</li>
-        <li>Document-oriented database (NoSQL)</li>
-      </ol>
-    </section>
-
-    <section class="slide">
-      <h2>Database</h2>
-      <ol>
-        <li>Relational database (SQL)</li>
-        <li>Document-oriented database (NoSQL)</li>
-        <li>NewSQL</li>
-      </ol>
-    </section>
-
-    <section class="slide">
-      <h2>Database</h2>
-      <ol>
-        <li>Relational database (SQL)</li>
-        <li>Document-oriented database (NoSQL)</li>
-        <li>NewSQL</li>
-        <li>Key–value</li>
-      </ol>
-    </section>
-
-    <section class="slide">
-      <h2>Database</h2>
-      <ol>
-        <li>Relational database (SQL)</li>
-        <li>Document-oriented database (NoSQL)</li>
-        <li>NewSQL</li>
-        <li>Key–value</li>
-        <li>Embedded database</li>
-      </ol>
     </section>
 
     <section class="slide">
@@ -249,30 +205,53 @@
     </section>
 
     <section class="slide">
+      <h2 class="shout shout-e">
+        <a href="https://survey.stackoverflow.co/2025/technology#1-databases" target="_blank"
+          >Stack Overflow 2025 <br /><br />Developer Survey (Databases) 🔗</a
+        >
+      </h2>
+    </section>
+
+    <section class="slide">
       <h2>Redis benefits</h2>
       <ol>
-        <li>Performance</li>
-        <li>Pipelining</li>
-        <li>...</li>
-        <li class="unmarked">
-          <a href="https://survey.stackoverflow.co/2025/technology#1-databases" target="_blank"
-            >Stack Overflow 2025 Developer Survey (Databases)</a
-          >
+        <li>High performance and speed in-memory storage</li>
+        <li>
+          Data Structures and Flexibility
+          <ul>
+            <li>Strings</li>
+            <li>Hashes</li>
+            <li>Lists</li>
+            <li>Sets / Sorted Sets</li>
+          </ul>
         </li>
-        <li class="unmarked">-</li>
+
+        <li>Scalability and High Availability</li>
       </ol>
-      <sup class="todo">TODO:</sup>
+    </section>
+
+    <section class="slide">
+      <h2>Wishes from our team</h2>
+      <ol>
+        <li>Performance</li>
+        <li>Support for rich data model</li>
+        <li>Flat traversal for deeply structured data</li>
+        <li>Abstract Redis from business logic</li>
+      </ol>
+    </section>
+
+    <section class="slide rc">
+      <img class="cover w" src="assets/images/so.png" alt="stackoverflow developer survey" />
     </section>
 
     <section class="slide">
       <h2>Our wishes</h2>
       <ol>
         <li>Performance</li>
-        <li>ORM/ODM style</li>
-        <li>Decorators</li>
-        <li>-</li>
+        <li>Support for rich data model</li>
+        <li>Flat traversal for deeply structured data</li>
+        <li>Abstract Redis from business logic</li>
       </ol>
-      <sup class="todo">TODO:</sup>
     </section>
 
     <section class="slide rc">
@@ -531,6 +510,16 @@
     </section>
 
     <section class="slide rc">
+      <img class="cover w" src="assets/code/class-planet-explain-1.png" alt="class Planet" />
+    </section>
+    <section class="slide rc">
+      <img class="cover w" src="assets/code/class-planet-explain-2.png" alt="class Planet" />
+    </section>
+    <section class="slide rc">
+      <img class="cover w" src="assets/code/class-planet-explain-3.png" alt="class Planet" />
+    </section>
+
+    <section class="slide rc">
       <img class="cover h" src="assets/code/r-my-document-class.png" alt="class Planet" />
       <sup class="todo">TODO: class Planet</sup>
     </section>
@@ -543,6 +532,16 @@
         <li>...</li>
       </ol>
       <sup class="todo">TODO: results</sup>
+    </section>
+
+    <section class="slide">
+      <h2>Takeaways</h2>
+      <ol>
+        <li>one</li>
+        <li>two</li>
+        <li>...</li>
+      </ol>
+      <sup class="todo">TODO: Takeaways</sup>
     </section>
 
     <section class="slide">
@@ -574,9 +573,16 @@
     </section>
 
     <section class="slide">
-      <div id="root"></div>
-      <h2 class="shout shout-e">QR | QA</h2>
-      <sup class="todo">TODO:</sup>
+      <img class="cover h" src="assets/rc/01-bg.jpeg" />
+      <img class="rc-logo" src="assets/rc/01-rc-logo.png" />
+      <div class="qr-section">
+        <div class="qr-left">
+          <img src="assets/images/qr-code.svg" alt="QR Code" />
+        </div>
+        <div class="qr-right">
+          <h2>Thank you</h2>
+        </div>
+      </div>
     </section>
 
     <footer class="badge">

@@ -121,3 +121,28 @@ code > span.code-args {
 .progress::before {
   background-color: var(--color-rc-blue);
 }
+
+.slide .qr-section {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.slide .qr-left {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide .qr-left img {
+  width: 70%;
+  height: auto;
+}
+
+.slide .qr-right {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
